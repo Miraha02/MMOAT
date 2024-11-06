@@ -81,5 +81,5 @@ Content/StarterContent/*
 Content/ThirdPerson/*
 Content/__ExternalActors__/*
 Content/__ExternalObjects__/*
-
+Content/Assets/*
 .vsconfig
