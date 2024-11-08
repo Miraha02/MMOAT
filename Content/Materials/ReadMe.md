@@ -1,0 +1,1 @@
+Ce répertoire sert à stocker les matériels qui eux sont suivi dans le git.

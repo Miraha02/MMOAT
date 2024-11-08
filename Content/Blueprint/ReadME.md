@@ -1,0 +1,1 @@
+Ici, on trouve tous les blueprints du projets à mettres commit sur git comme d'habitude

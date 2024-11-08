@@ -1,0 +1,1 @@
+Ce répertoire sert à contenir tous les assets du jeu, il faut aller les chercher sur le drive, le fichier assets est dans le gitignore
