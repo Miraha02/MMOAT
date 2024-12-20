@@ -15,9 +15,9 @@ class MMOAT_API UManaCostGameplayAbility : public UGameplayAbility
 	GENERATED_BODY()
 	
 public:
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Mana Cost")
 	float Cost;
 
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cooldown")
 	float Cooldown;
 };

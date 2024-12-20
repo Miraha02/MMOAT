@@ -10,7 +10,7 @@ float UGetCooldownLength::CalculateBaseMagnitude_Implementation(const FGameplayE
 	const UManaCostGameplayAbility* Ability = Cast<UManaCostGameplayAbility>(Spec.GetContext().GetAbility());
 
 	if (!Ability) {
-		return 0.f;
+		return 10.f;
 	}
 
 	return Ability->Cooldown;
