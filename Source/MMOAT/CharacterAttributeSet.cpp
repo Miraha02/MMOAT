@@ -53,3 +53,13 @@ void UCharacterAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty
 	DOREPLIFETIME(UCharacterAttributeSet, MaxMana);
 	DOREPLIFETIME(UCharacterAttributeSet, ManaRegen);
 }
+
+void UCharacterAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data)
+{
+	Super::PostGameplayEffectExecute(Data);
+
+	if (Data.EvaluatedData.Attribute == GetManaAttribute())
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Mana modified! New value: %f"), Mana.GetCurrentValue());
+	}
+}
