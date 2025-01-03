@@ -80,5 +80,7 @@ protected:
 
 	void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const;
 
+	void PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data);
+	bool PreGameplayEffectExecute(FGameplayEffectModCallbackData& Data);
 
 };

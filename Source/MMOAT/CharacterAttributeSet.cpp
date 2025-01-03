@@ -6,14 +6,14 @@
 
 UCharacterAttributeSet::UCharacterAttributeSet() {
 	// Initinal values for Health, MaxHealth and HealthRegen
-	Health = 100;
-	MaxHealth = 100;
-	HealthRegen = 3;
+	Health = 1;
+	MaxHealth = 1;
+	HealthRegen = 0.01;
 
 	// Initinal values for Mana, MaxMana andManahRegen
-	Mana = 100;
-	MaxMana = 100;
-	ManaRegen = 3;
+	Mana = 1;
+	MaxMana = 1;
+	ManaRegen = 0.01;
 }
 
 void UCharacterAttributeSet::OnRep_Health(const FGameplayAttributeData& OldHealth) {
@@ -52,4 +52,52 @@ void UCharacterAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty
 	DOREPLIFETIME(UCharacterAttributeSet, Mana);
 	DOREPLIFETIME(UCharacterAttributeSet, MaxMana);
 	DOREPLIFETIME(UCharacterAttributeSet, ManaRegen);
+}
+
+void UCharacterAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data)
+{
+	Super::PostGameplayEffectExecute(Data);
+
+	if (Data.EvaluatedData.Attribute == GetManaAttribute())
+	{
+		// Empeche le mana d'être superieur au mana max pour n'importe quel raison
+		if (GetMana() > GetMaxMana())
+		{
+			Mana = GetMaxMana();
+		}
+	}
+
+	if (Data.EvaluatedData.Attribute == GetHealthAttribute())
+	{
+		// Empeche la vie d'être superieur a la vie max pour n'importe quel raison
+		if (GetHealth() > GetMaxHealth())
+		{
+			Health = GetMaxHealth();
+		}
+	}
+}
+
+
+bool UCharacterAttributeSet::PreGameplayEffectExecute(FGameplayEffectModCallbackData& Data)
+{
+	Super::PreGameplayEffectExecute(Data);
+	
+	if (Data.EvaluatedData.Attribute == GetManaAttribute())
+	{
+		// Modification pour que le mana n'excede jamais la valeur du mana max
+		if (GetMana() + GetManaRegen() > GetMaxMana() && Data.EvaluatedData.Magnitude > 0)
+		{
+			Data.EvaluatedData.Magnitude = GetMaxMana() - GetMana();
+		}
+	}
+
+	if (Data.EvaluatedData.Attribute == GetHealthAttribute())
+	{
+		// Modification pour que la vie n'excede jamais la valeur du mana max
+		if (GetHealth() + GetHealthRegen() > GetMaxHealth() && Data.EvaluatedData.Magnitude > 0)
+		{
+			Data.EvaluatedData.Magnitude = GetMaxHealth() - GetHealth();
+		}
+	}
+	return true;
 }
