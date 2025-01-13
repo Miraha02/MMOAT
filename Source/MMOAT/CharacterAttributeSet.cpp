@@ -5,12 +5,12 @@
 #include "Net/UnrealNetwork.h" //Pour le online plus tard
 
 UCharacterAttributeSet::UCharacterAttributeSet() {
-	// Initinal values for Health, MaxHealth and HealthRegen
+	// Initial values for Health, MaxHealth and HealthRegen
 	Health = 1;
 	MaxHealth = 1;
 	HealthRegen = 0.01;
 
-	// Initinal values for Mana, MaxMana andManahRegen
+	// Initial values for Mana, MaxMana andManahRegen
 	Mana = 1;
 	MaxMana = 1;
 	ManaRegen = 0.01;
