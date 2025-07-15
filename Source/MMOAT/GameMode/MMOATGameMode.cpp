@@ -1,7 +1,6 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
 #include "MMOATGameMode.h"
-#include "MMOATCharacter.h"
 #include "UObject/ConstructorHelpers.h"
 
 AMMOATGameMode::AMMOATGameMode()

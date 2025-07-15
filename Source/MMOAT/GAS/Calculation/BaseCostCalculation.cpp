@@ -2,7 +2,7 @@
 
 
 #include "BaseCostCalculation.h"
-#include "ManaCostGameplayAbility.h"
+#include "MMOAT/GAS/GA/ManaCostGameplayAbility.h"
 #include "AbilitySystemComponent.h"
 
 float UBaseCostCalculation::CalculateBaseMagnitude_Implementation(const FGameplayEffectSpec& Spec) const {

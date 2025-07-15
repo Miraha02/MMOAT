@@ -3,7 +3,7 @@
 
 #include "GetCooldownLength.h"
 
-#include "ManaCostGameplayAbility.h"
+#include "MMOAT/GAS/GA/ManaCostGameplayAbility.h"
 
 float UGetCooldownLength::CalculateBaseMagnitude_Implementation(const FGameplayEffectSpec& Spec) const {
 
