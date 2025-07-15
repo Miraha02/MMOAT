@@ -5,6 +5,7 @@
 
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
+#include "GameFramework/Character.h"
 #include "MMOAT/Err.h"
 
 AMMOPlayerController::AMMOPlayerController()
@@ -20,6 +21,7 @@ void AMMOPlayerController::BeginPlay()
 	IS_NOT_NULL(DefaultMappingContext,"Mapping Context is Null");
 	IS_NOT_NULL(MoveAction,"Move Action is Null");
 	IS_NOT_NULL(LookAction,"Look Action is Null");
+	IS_NOT_NULL(JumpAction,"Jump Action is Null");
 
 	if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer()))
 	{
@@ -45,6 +47,10 @@ void AMMOPlayerController::SetupInputComponent()
 		{
 			EnhancedInput->BindAction(LookAction, ETriggerEvent::Triggered, this, &AMMOPlayerController::Look);
 		}
+		if (JumpAction)
+		{
+			EnhancedInput->BindAction(JumpAction, ETriggerEvent::Started, this, &AMMOPlayerController::Jump);
+		}
 	}
 }
 
@@ -69,4 +75,9 @@ void AMMOPlayerController::Look(const FInputActionValue& Value)
 	const FVector2D LookAxis = Value.Get<FVector2D>();
 	AddYawInput(LookAxis.X);
 	AddPitchInput(LookAxis.Y);
+}
+
+void AMMOPlayerController::Jump(const FInputActionValue& Value)
+{
+	GetCharacter()->Jump();
 }
