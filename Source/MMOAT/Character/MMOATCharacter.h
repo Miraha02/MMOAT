@@ -56,8 +56,11 @@ protected:
 	/** Called for looking input */
 	void Look(const FInputActionValue& Value);
 
-	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = Health)
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = SetStats)
 	void SetHealth(float MaxHealth);
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = SetStats)
+	void SetMana(float MaxMana);
 
 protected:
 	// APawn interface
