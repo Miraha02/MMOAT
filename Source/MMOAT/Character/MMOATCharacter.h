@@ -62,6 +62,9 @@ protected:
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = SetStats)
 	void SetMana(float MaxMana);
 
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = SetStats)
+	void SetRegens(float HealthRegen, float ManaRegen);
+
 protected:
 	// APawn interface
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;

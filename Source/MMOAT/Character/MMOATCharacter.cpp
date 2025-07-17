@@ -132,3 +132,8 @@ void AMMOATCharacter::SetMana_Implementation(float MaxMana)
 {
 	UE_LOG(LogTemp, Error, TEXT("Set Mana function Is Not Implemented in Blueprint !"));
 }
+
+void AMMOATCharacter::SetRegens_Implementation(float HealthRegen, float ManaRegen)
+{
+	UE_LOG(LogTemp, Error, TEXT("Set Regens function Is Not Implemented !"));
+}
