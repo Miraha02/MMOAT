@@ -58,12 +58,6 @@ protected:
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = SetStats)
 	void SetRegens(float HealthRegen, float ManaRegen);
 
-	/**
-	 *  Give Mana Regen Tag to Activate Mana Regen Gameplay Effect
-	 */
-	UFUNCTION(BlueprintCallable, Category = ActivateRegen)
-	void ActivateManaRegen();
-
 public:
 	AMMOATCharacter();
 
