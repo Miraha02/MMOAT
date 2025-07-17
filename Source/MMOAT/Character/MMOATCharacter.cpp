@@ -67,6 +67,8 @@ void AMMOATCharacter::BeginPlay()
 {
 	// Call the base class  
 	Super::BeginPlay();
+
+	ASC->AddLooseGameplayTags(StartingTags);
 }
 
 void AMMOATCharacter::ActivateManaRegen()
