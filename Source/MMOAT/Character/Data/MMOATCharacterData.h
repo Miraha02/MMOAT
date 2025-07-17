@@ -3,17 +3,17 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Engine/DataTable.h"
-#include "MMOATCharacterDataTable.generated.h"
+#include "Engine/DataAsset.h"
+#include "MMOATCharacterData.generated.h"
 
 /**
  * 
  */
 UCLASS(Blueprintable)
-class MMOAT_API UMMOATCharacterDataTable : public UDataTable
+class MMOAT_API UMMOATCharacterData : public UDataAsset
 {
 	GENERATED_BODY()
-	
+
 protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Data", meta=(AllowPrivateAccess=true))
 	float MaxHealth = 100.0f;
@@ -32,25 +32,4 @@ public:
 	float GetMaxMana() const;
 	float GetHealthRegen() const;
 	float GetManaRegen() const;
-
-inline float UMMOATCharacterDataTable::GetMaxHealth() const
-{
-	return MaxHealth;
-}
-
-inline float UMMOATCharacterDataTable::GetMaxMana() const
-{
-	return MaxMana;
-}
-
-inline float UMMOATCharacterDataTable::GetHealthRegen() const
-{
-	return HealthRegen;
-}
-
-inline float UMMOATCharacterDataTable::GetManaRegen() const
-{
-	return ManaRegen;
-}
-
 };
