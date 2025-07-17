@@ -36,6 +36,9 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = ASC, meta = (AllowPrivateAccess = "true"))
 	UAbilitySystemComponent* ASC;
 
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = GameplayTags, meta = (AllowPrivateAccess = "true"))
+	FGameplayTagContainer OwnedTags;
+
 public:
 
 private:
