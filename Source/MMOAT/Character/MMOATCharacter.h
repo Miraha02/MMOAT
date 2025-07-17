@@ -57,7 +57,7 @@ protected:
 	void Look(const FInputActionValue& Value);
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = Health)
-	void SetHealth();
+	void SetHealth(float MaxHealth);
 
 protected:
 	// APawn interface
