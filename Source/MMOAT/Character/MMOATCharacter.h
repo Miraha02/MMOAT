@@ -40,7 +40,7 @@ protected:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = GameplayTags, meta = (AllowPrivateAccess = "true"))
 	FGameplayTagContainer StartingTags;
 
-	UPROPERTY(BlueprintReadOnly, Category = Data, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Data, meta = (AllowPrivateAccess = "true"))
 	UMMOATCharacterData* CharacterData;
 	
 
