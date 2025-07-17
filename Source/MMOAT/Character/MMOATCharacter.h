@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Abilities/GameplayAbility.h"
 #include "GameFramework/Character.h"
 #include "Logging/LogMacros.h"
 #include "MMOATCharacter.generated.h"
@@ -31,6 +32,9 @@ protected:
 	/** Follow camera */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	UCameraComponent* FollowCamera;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = ASC, meta = (AllowPrivateAccess = "true"))
+	UAbilitySystemComponent* ASC;
 
 public:
 
