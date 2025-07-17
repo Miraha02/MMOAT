@@ -68,6 +68,12 @@ void AMMOATCharacter::BeginPlay()
 	// Call the base class  
 	Super::BeginPlay();
 
+	IS_NOT_NULL(CharacteDataTable, "Character Data Table Has Not Been Filled in Blueprint !");
+
+	//Set Character Stats From Character Data Asset
+	SetHealth(CharacteDataTable->GetMaxHealth());
+	SetMana(CharacteDataTable->GetMaxMana());
+
 	ASC->AddLooseGameplayTags(StartingTags);
 }
 

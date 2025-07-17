@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Abilities/GameplayAbility.h"
+#include "Data/MMOATCharacterDataTable.h"
 #include "GameFramework/Character.h"
 #include "Logging/LogMacros.h"
 #include "MMOATCharacter.generated.h"
@@ -38,6 +39,10 @@ protected:
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = GameplayTags, meta = (AllowPrivateAccess = "true"))
 	FGameplayTagContainer StartingTags;
+
+	UPROPERTY(BlueprintReadOnly, Category = Data, meta = (AllowPrivateAccess = "true"))
+	UMMOATCharacterDataTable* CharacteDataTable;
+	
 
 public:
 
