@@ -128,3 +128,8 @@ void AMMOATCharacter::Look(const FInputActionValue& Value)
 		AddControllerPitchInput(LookAxisVector.Y);
 	}
 }
+
+void AMMOATCharacter::SetHealth_Implementation()
+{
+	UE_LOG(LogTemp, Error, TEXT("Set Health function Is Not Implemented in Blueprint !"));
+}

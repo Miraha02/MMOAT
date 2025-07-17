@@ -55,7 +55,9 @@ protected:
 
 	/** Called for looking input */
 	void Look(const FInputActionValue& Value);
-			
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = Health)
+	void SetHealth();
 
 protected:
 	// APawn interface
