@@ -41,7 +41,7 @@ protected:
 	FGameplayTagContainer StartingTags;
 
 	UPROPERTY(BlueprintReadOnly, Category = Data, meta = (AllowPrivateAccess = "true"))
-	UMMOATCharacterData* CharacteData;
+	UMMOATCharacterData* CharacterData;
 	
 
 public:
