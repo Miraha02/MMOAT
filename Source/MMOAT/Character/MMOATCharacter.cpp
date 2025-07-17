@@ -69,6 +69,11 @@ void AMMOATCharacter::BeginPlay()
 	Super::BeginPlay();
 }
 
+void AMMOATCharacter::ActivateManaRegen()
+{
+	
+}
+
 void AMMOATCharacter::SetHealth_Implementation(float MaxHealth)
 {
 	UE_LOG(LogTemp, Error, TEXT("Set Health function Is Not Implemented in Blueprint !"));

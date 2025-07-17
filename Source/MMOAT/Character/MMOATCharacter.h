@@ -43,6 +43,9 @@ private:
 
 protected:
 
+	// To add mapping context
+	virtual void BeginPlay();
+
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = SetStats)
 	void SetHealth(float MaxHealth);
 
@@ -52,10 +55,11 @@ protected:
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = SetStats)
 	void SetRegens(float HealthRegen, float ManaRegen);
 
+	/**
+	 *  Give Mana Regen Tag to Activate Mana Regen Gameplay Effect
+	 */
 	UFUNCTION(BlueprintCallable, Category = ActivateRegen)
-	
-	// To add mapping context
-	virtual void BeginPlay();
+	void ActivateManaRegen();
 
 public:
 	AMMOATCharacter();
