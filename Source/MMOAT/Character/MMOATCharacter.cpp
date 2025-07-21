@@ -77,6 +77,9 @@ void AMMOATCharacter::BeginPlay()
 	//Set Character Stats From Character Data Asset
 	SetHealth(CharacterData->GetMaxHealth());
 	SetMana(CharacterData->GetMaxMana());
+
+	OnHealthUpdateEvent();
+	OnManaUpdateEvent();
 }
 
 void AMMOATCharacter::Tick(float DeltaSeconds)
