@@ -15,8 +15,6 @@ class MMOAT_API UGE_Test_TakeDamage : public UGameplayEffect
 	GENERATED_BODY()
 
 public:
-
-	float Damage = 5.0f;
-
+	
 	UGE_Test_TakeDamage();
 };

@@ -13,7 +13,7 @@ UGE_Test_TakeDamage::UGE_Test_TakeDamage()
 	FGameplayModifierInfo Modifier;
 	Modifier.Attribute = UCharacterAttributeSet::GetHealthAttribute();
 	Modifier.ModifierOp = EGameplayModOp::Additive;
-	Modifier.ModifierMagnitude = FScalableFloat(Damage);
+	Modifier.ModifierMagnitude = FScalableFloat(-1.5);
 
 	Modifiers.Add(Modifier);
 }
