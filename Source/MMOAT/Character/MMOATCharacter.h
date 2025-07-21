@@ -47,6 +47,10 @@ protected:
 public:
 
 private:
+	/**
+	 * Initialize Character Attribute Set
+	 */
+	void InitAttributes();
 	
 
 protected:
