@@ -70,11 +70,11 @@ void AMMOATCharacter::BeginPlay()
 
 	IS_NOT_NULL(CharacterData, "Character Data Table Has Not Been Filled in Blueprint !");
 
+	ASC->AddLooseGameplayTags(StartingTags);
+
 	//Set Character Stats From Character Data Asset
 	SetHealth(CharacterData->GetMaxHealth());
 	SetMana(CharacterData->GetMaxMana());
-
-	ASC->AddLooseGameplayTags(StartingTags);
 }
 
 void AMMOATCharacter::SetHealth_Implementation(float MaxHealth)
