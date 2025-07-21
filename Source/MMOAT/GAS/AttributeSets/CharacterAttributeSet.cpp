@@ -2,6 +2,8 @@
 
 
 #include "CharacterAttributeSet.h"
+
+#include "MMOAT/Character/MMOATCharacter.h"
 #include "Net/UnrealNetwork.h" //Pour le online plus tard
 
 UCharacterAttributeSet::UCharacterAttributeSet() {
@@ -65,6 +67,19 @@ void UCharacterAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModC
 		{
 			Mana = GetMaxMana();
 		}
+
+		// Empeche le mana d'être inférieur à 0
+		if (GetMana() < 0)
+		{
+			Mana = 0;
+		}
+
+		// Update Mana UI If Owning Actor is A AMMOATCharacter
+		AMMOATCharacter* Character = Cast<AMMOATCharacter>(GetOwningActor());
+		if (Character)
+		{
+			Character->OnManaUpdateEvent();
+		}
 	}
 
 	if (Data.EvaluatedData.Attribute == GetHealthAttribute())
@@ -73,6 +88,19 @@ void UCharacterAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModC
 		if (GetHealth() > GetMaxHealth())
 		{
 			Health = GetMaxHealth();
+		}
+
+		// Empeche la vie d'être inférieur à 0
+		if (GetHealth() < 0)
+		{
+			Health = 0;
+		}
+
+		// Update Health UI If Owning Actor is A AMMOATCharacter
+		AMMOATCharacter* Character = Cast<AMMOATCharacter>(GetOwningActor());
+		if (Character)
+		{
+			Character->OnHealthUpdateEvent();
 		}
 	}
 }
