@@ -14,12 +14,12 @@
 #include "InputActionValue.h"
 #include "MMOAT/Err.h"
 #include "MMOAT/GAS/AttributeSets/CharacterAttributeSet.h"
+#include "MMOAT/GAS/GE/GE_Test_TakeDamage.h"
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
 //////////////////////////////////////////////////////////////////////////
 // AMMOATCharacter
-
 AMMOATCharacter::AMMOATCharacter()
 {
 	// Set size for collision capsule
@@ -79,6 +79,20 @@ void AMMOATCharacter::BeginPlay()
 	SetMana(CharacterData->GetMaxMana());
 }
 
+void AMMOATCharacter::Tick(float DeltaSeconds)
+{
+	Super::Tick(DeltaSeconds);
+	
+	FGameplayEffectContextHandle Context = ASC->MakeEffectContext();
+	FGameplayEffectSpecHandle SpecHandle = ASC->MakeOutgoingSpec(UGE_Test_TakeDamage::StaticClass(), 1.0f, Context);
+
+	if (SpecHandle.IsValid())
+	{
+		UE_LOG(LogTemp, Log, TEXT("%f"),ASC->GetSet<UCharacterAttributeSet>()->GetHealth());
+		ASC->ApplyGameplayEffectSpecToSelf(*SpecHandle.Data.Get());
+	}
+}
+
 void AMMOATCharacter::InitAttributes()
 {
 	UCharacterAttributeSet* MyAttributeSet = NewObject<UCharacterAttributeSet>(this, UCharacterAttributeSet::StaticClass());
@@ -98,4 +112,14 @@ void AMMOATCharacter::SetMana_Implementation(float MaxMana)
 void AMMOATCharacter::SetRegens_Implementation(float HealthRegen, float ManaRegen)
 {
 	UE_LOG(LogTemp, Error, TEXT("Set Regens function Is Not Implemented !"));
+}
+
+void AMMOATCharacter::OnHealthUpdateEvent_Implementation()
+{
+	UE_LOG(LogTemp, Error, TEXT("OnHealthUpdateEvent Is Not Implemented !"));
+}
+
+void AMMOATCharacter::OnManaUpdateEvent_Implementation()
+{
+	UE_LOG(LogTemp, Error, TEXT("OnManaUpdateEvent Is Not Implemented !"));
 }
