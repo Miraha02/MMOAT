@@ -72,11 +72,14 @@ protected:
 public:
 	AMMOATCharacter();
 
-	UFUNCTION(BlueprintNativeEvent, Category = UI_Function)
+	UFUNCTION(BlueprintNativeEvent, Category = "Event/UI_Function")
 	void OnHealthUpdateEvent();
 
-	UFUNCTION(BlueprintNativeEvent, Category = UI_Function)
+	UFUNCTION(BlueprintNativeEvent, Category = "Event/UI_Function")
 	void OnManaUpdateEvent();
+
+	UFUNCTION(BlueprintNativeEvent, Category = "Event/Death")
+	void OnDeathEvent();
 	
 	/** Returns CameraBoom subobject **/
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }

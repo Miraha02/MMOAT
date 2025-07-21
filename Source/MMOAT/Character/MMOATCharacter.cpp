@@ -102,6 +102,11 @@ void AMMOATCharacter::InitAttributes()
 	ASC->AddAttributeSetSubobject(MyAttributeSet);
 }
 
+void AMMOATCharacter::OnDeathEvent_Implementation()
+{
+	UE_LOG(LogTemp, Display, TEXT("AAMMOATCharacter is Dead"));
+}
+
 void AMMOATCharacter::SetHealth_Implementation(float MaxHealth)
 {
 	UE_LOG(LogTemp, Error, TEXT("Set Health function Is Not Implemented in Blueprint !"));

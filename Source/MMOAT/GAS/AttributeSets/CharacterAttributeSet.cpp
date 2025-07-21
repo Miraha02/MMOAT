@@ -91,9 +91,16 @@ void UCharacterAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModC
 		}
 
 		// Empeche la vie d'être inférieur à 0
-		if (GetHealth() < 0)
+		if (GetHealth() <= 0)
 		{
 			Health = 0;
+
+			// Call On Death Event Function If Owning Actor Is a AMMOATCharacter
+			AMMOATCharacter* Character = Cast<AMMOATCharacter>(GetOwningActor());
+			if (Character)
+			{
+				Character->OnDeathEvent();
+			}
 		}
 
 		// Update Health UI If Owning Actor is A AMMOATCharacter
