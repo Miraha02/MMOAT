@@ -175,7 +175,7 @@ void AMMOATCharacter::ActivateHealthRegen(bool Activate)
 	// Deactivate Health Regen
 	else
 	{
-		UE_LOG(LogTemp, Display, TEXT("Activating Health Regen"));
+		UE_LOG(LogTemp, Display, TEXT("Deactivating Health Regen"));
 		if (!ASC->HasMatchingGameplayTag(FullHealthTag))
 		{
 			ASC->AddLooseGameplayTag(FullHealthTag);
