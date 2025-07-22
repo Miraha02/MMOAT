@@ -70,6 +70,7 @@ void AMMOATCharacter::BeginPlay()
 	Super::BeginPlay();
 
 	IS_NOT_NULL(CharacterData, "Character Data Table Has Not Been Filled in Blueprint !");
+	IS_NOT_NULL(GE_HealthRegen, "Health Regen Has Not Been Filled in BP !");
 
 	InitAttributes();
 	//Add Blueprint choosed Tag to Character's ASC 
@@ -81,6 +82,17 @@ void AMMOATCharacter::BeginPlay()
 
 	OnHealthUpdateEvent();
 	OnManaUpdateEvent();
+
+	// Apply Gameplay Effect Regen to Character
+	FGameplayEffectContextHandle EffectContext = ASC->MakeEffectContext();
+	EffectContext.AddSourceObject(this);
+	FGameplayEffectSpecHandle SpecHandle = ASC->MakeOutgoingSpec(GE_HealthRegen, 0, EffectContext);
+	if (SpecHandle.IsValid())
+	{
+		ASC->ApplyGameplayEffectSpecToSelf(*SpecHandle.Data.Get());
+	}
+
+	
 }
 
 void AMMOATCharacter::Tick(float DeltaSeconds)

@@ -42,6 +42,9 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Data, meta = (AllowPrivateAccess = "true"))
 	UMMOATCharacterData* CharacterData;
+
+	UPROPERTY(EditDefaultsOnly, Category = GameplayEffect)
+	TSubclassOf<UGameplayEffect> GE_HealthRegen;
 	
 
 public:
