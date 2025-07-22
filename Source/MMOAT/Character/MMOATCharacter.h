@@ -69,6 +69,13 @@ protected:
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = SetStats)
 	void SetRegens(float HealthRegen, float ManaRegen);
 
+	/**
+	 * 
+	 * @param Activate 
+	 */
+	UFUNCTION(BlueprintCallable, Category = SetStats)
+	void ActivateHealthRegen(bool Activate = true);
+
 public:
 	AMMOATCharacter();
 

@@ -90,7 +90,7 @@ void AMMOATCharacter::Tick(float DeltaSeconds)
 	FGameplayEffectContextHandle Context = ASC->MakeEffectContext();
 	FGameplayEffectSpecHandle SpecHandle = ASC->MakeOutgoingSpec(UGE_Test_TakeDamage::StaticClass(), 1.0f, Context);
 
-	if (SpecHandle.IsValid())
+	if (false && SpecHandle.IsValid())
 	{
 		UE_LOG(LogTemp, Log, TEXT("%f"),ASC->GetSet<UCharacterAttributeSet>()->GetHealth());
 		ASC->ApplyGameplayEffectSpecToSelf(*SpecHandle.Data.Get());
@@ -131,4 +131,10 @@ void AMMOATCharacter::OnHealthUpdateEvent_Implementation()
 void AMMOATCharacter::OnManaUpdateEvent_Implementation()
 {
 	UE_LOG(LogTemp, Error, TEXT("OnManaUpdateEvent Is Not Implemented !"));
+}
+
+void AMMOATCharacter::ActivateHealthRegen(bool Activate)
+{
+	//TODO
+	UE_LOG(LogTemp, Error, TEXT("ActivateHealthRegen Is Not Implemented !"));
 }
