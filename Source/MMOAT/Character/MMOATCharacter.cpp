@@ -72,6 +72,7 @@ void AMMOATCharacter::BeginPlay()
 	IS_NOT_NULL(CharacterData, "Character Data Table Has Not Been Filled in Blueprint !");
 
 	InitAttributes();
+	//Add Blueprint choosed Tag to Character's ASC 
 	ASC->AddLooseGameplayTags(StartingTags);
 
 	//Set Character Stats From Character Data Asset
