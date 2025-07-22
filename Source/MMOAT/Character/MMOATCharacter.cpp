@@ -160,9 +160,9 @@ void AMMOATCharacter::ActivateHealthRegen(bool Activate)
 	// Activate Health Regen
 	if (Activate)
 	{
-		UE_LOG(LogTemp, Display, TEXT("Activating Health Regen"));
 		if (!ASC->HasMatchingGameplayTag(HealthTag))
 		{
+			UE_LOG(LogTemp, Display, TEXT("Activating Health Regen"));
 			ASC->AddLooseGameplayTag(HealthTag);
 			UE_LOG(LogTemp, Display, TEXT("Tag 'Character.Health.MissHealth' Has been Added to %s"), *GetName());
 		}
@@ -175,9 +175,9 @@ void AMMOATCharacter::ActivateHealthRegen(bool Activate)
 	// Deactivate Health Regen
 	else
 	{
-		UE_LOG(LogTemp, Display, TEXT("Deactivating Health Regen"));
 		if (!ASC->HasMatchingGameplayTag(FullHealthTag))
 		{
+			UE_LOG(LogTemp, Display, TEXT("Deactivating Health Regen"));
 			ASC->AddLooseGameplayTag(FullHealthTag);
 			UE_LOG(LogTemp, Display, TEXT("Tag 'Character.Health.IsFullHealth' Has been Added to %s"), *GetName());
 		}
