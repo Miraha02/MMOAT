@@ -91,9 +91,10 @@ void UCharacterAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModC
 		}
 		
 		// Empeche la vie d'être superieur a la vie max pour n'importe quel raison
-		if (GetHealth() > GetMaxHealth())
+		if (GetHealth() >= GetMaxHealth())
 		{
 			Health = GetMaxHealth();
+			ActivateHealthRegen(false);
 		}
 
 		// Empeche la vie d'être inférieur à 0
@@ -143,10 +144,10 @@ bool UCharacterAttributeSet::PreGameplayEffectExecute(FGameplayEffectModCallback
 	return true;
 }
 
-void UCharacterAttributeSet::ActivateHealthRegen()
+void UCharacterAttributeSet::ActivateHealthRegen(bool Activate)
 {
 		if (auto Character = Cast<AMMOATCharacter>(GetOwningActor()))
 		{
-			Character->ActivateHealthRegen(true);
+			Character->ActivateHealthRegen(Activate);
 		}
 }

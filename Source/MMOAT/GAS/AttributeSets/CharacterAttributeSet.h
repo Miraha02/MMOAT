@@ -59,7 +59,7 @@ public:
 	
 private:
 
-	void ActivateHealthRegen();
+	void ActivateHealthRegen(bool Activate = true);
 	
 protected:
 	// replactation notification function pour mes attributs
