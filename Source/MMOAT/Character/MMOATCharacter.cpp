@@ -135,6 +135,43 @@ void AMMOATCharacter::OnManaUpdateEvent_Implementation()
 
 void AMMOATCharacter::ActivateHealthRegen(bool Activate)
 {
-	//TODO
-	UE_LOG(LogTemp, Error, TEXT("ActivateHealthRegen Is Not Implemented !"));
+	if (!ASC)
+	{
+		UE_LOG(LogTemp, Error, TEXT("Error, ASC is Null !!!"))
+		return;
+	}
+		
+		FGameplayTag HealthTag = FGameplayTag::RequestGameplayTag(FName("Character.Health.MissHealth"));
+		FGameplayTag FullHealthTag = FGameplayTag::RequestGameplayTag(FName("Character.Health.IsFullHealth"));
+
+	// Activate Health Regen
+	if (Activate)
+	{
+		UE_LOG(LogTemp, Display, TEXT("Activating Health Regen"));
+		if (!ASC->HasMatchingGameplayTag(HealthTag))
+		{
+			ASC->AddLooseGameplayTag(HealthTag);
+			UE_LOG(LogTemp, Display, TEXT("Tag 'Character.Health.MissHealth' Has been Added to %s"), *GetName());
+		}
+		if (ASC->HasMatchingGameplayTag(FullHealthTag))
+		{
+			ASC->RemoveLooseGameplayTag(FullHealthTag);
+			UE_LOG(LogTemp, Display, TEXT("Tag 'Character.Health.IsFullHealth' Has Been removed From %s"), *GetName());
+		}
+	}
+	// Deactivate Health Regen
+	else
+	{
+		UE_LOG(LogTemp, Display, TEXT("Activating Health Regen"));
+		if (!ASC->HasMatchingGameplayTag(FullHealthTag))
+		{
+			ASC->AddLooseGameplayTag(FullHealthTag);
+			UE_LOG(LogTemp, Display, TEXT("Tag 'Character.Health.IsFullHealth' Has been Added to %s"), *GetName());
+		}
+		if (ASC->HasMatchingGameplayTag(HealthTag))
+		{
+			ASC->RemoveLooseGameplayTag(HealthTag);
+			UE_LOG(LogTemp, Display, TEXT("Tag 'Character.Health.MissHealth' Has Been removed From %s"), *GetName());
+		}
+	}
 }

@@ -69,15 +69,15 @@ protected:
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = SetStats)
 	void SetRegens(float HealthRegen, float ManaRegen);
 
-	/**
-	 * 
-	 * @param Activate 
-	 */
-	UFUNCTION(BlueprintCallable, Category = SetStats)
-	void ActivateHealthRegen(bool Activate = true);
-
 public:
 	AMMOATCharacter();
+
+	/**
+	* Activate or Deactivate Health Regen on the Character By granting and removing concerned Tags
+	* @param Activate true : Activate HealthRegen \n false : Deactivate HealthRegen
+	*/
+	UFUNCTION(BlueprintCallable, Category = SetStats)
+	void ActivateHealthRegen(bool Activate = true);
 
 	UFUNCTION(BlueprintNativeEvent, Category = "Event/UI_Function")
 	void OnHealthUpdateEvent();
