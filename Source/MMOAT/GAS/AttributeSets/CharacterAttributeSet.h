@@ -57,7 +57,10 @@ public:
 	FGameplayAttributeData ManaRegen;
 	ATTRIBUTE_ACCESSORS(UCharacterAttributeSet, ManaRegen);
 	
+private:
 
+	void ActivateHealthRegen();
+	
 protected:
 	// replactation notification function pour mes attributs
 	UFUNCTION()
