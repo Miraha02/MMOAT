@@ -71,6 +71,7 @@ void AMMOATCharacter::BeginPlay()
 
 	IS_NOT_NULL(CharacterData, "Character Data Table Has Not Been Filled in Blueprint !");
 	IS_NOT_NULL(GE_HealthRegen, "Health Regen Has Not Been Filled in BP !");
+	IS_NOT_NULL(GE_ManaRegen, "Mana Regen Has Not Been Filled in BP !");
 
 	InitAttributes();
 	//Add Blueprint choosed Tag to Character's ASC 
@@ -84,10 +85,17 @@ void AMMOATCharacter::BeginPlay()
 	OnHealthUpdateEvent();
 	OnManaUpdateEvent();
 
-	// Apply Gameplay Effect Regen to Character
-	FGameplayEffectContextHandle EffectContext = ASC->MakeEffectContext();
-	EffectContext.AddSourceObject(this);
-	FGameplayEffectSpecHandle SpecHandle = ASC->MakeOutgoingSpec(GE_HealthRegen, 0, EffectContext);
+	// Apply Gameplay Effect Regens to Character
+	FGameplayEffectContextHandle HealthSpecHandle = ASC->MakeEffectContext();
+	FGameplayEffectContextHandle ManaSpecHandle = ASC->MakeEffectContext();
+	HealthSpecHandle.AddSourceObject(this);
+	ManaSpecHandle.AddSourceObject(this);
+	FGameplayEffectSpecHandle SpecHandle = ASC->MakeOutgoingSpec(GE_HealthRegen, 0, HealthSpecHandle);
+	if (SpecHandle.IsValid())
+	{
+		ASC->ApplyGameplayEffectSpecToSelf(*SpecHandle.Data.Get());
+	}
+	SpecHandle = ASC->MakeOutgoingSpec(GE_ManaRegen, 0, ManaSpecHandle);
 	if (SpecHandle.IsValid())
 	{
 		ASC->ApplyGameplayEffectSpecToSelf(*SpecHandle.Data.Get());
@@ -185,6 +193,49 @@ void AMMOATCharacter::ActivateHealthRegen(bool Activate)
 		{
 			ASC->RemoveLooseGameplayTag(HealthTag);
 			UE_LOG(LogTemp, Display, TEXT("Tag 'Character.Health.MissHealth' Has Been removed From %s"), *GetName());
+		}
+	}
+}
+
+void AMMOATCharacter::ActivateManaRegen(bool Activate)
+{
+	if (!ASC)
+	{
+		UE_LOG(LogTemp, Error, TEXT("Error, ASC is Null !!!"))
+		return;
+	}
+		
+	FGameplayTag ManaTag = FGameplayTag::RequestGameplayTag(FName("Character.Mana.MissMana"));
+	FGameplayTag FullManaTag = FGameplayTag::RequestGameplayTag(FName("Character.Mana.IsFullMana"));
+
+	// Activate Mana Regen
+	if (Activate)
+	{
+		if (!ASC->HasMatchingGameplayTag(ManaTag))
+		{
+			UE_LOG(LogTemp, Display, TEXT("Activating Mana Regen"));
+			ASC->AddLooseGameplayTag(ManaTag);
+			UE_LOG(LogTemp, Display, TEXT("Tag 'Character.Mana.MissMana' Has been Added to %s"), *GetName());
+		}
+		if (ASC->HasMatchingGameplayTag(FullManaTag))
+		{
+			ASC->RemoveLooseGameplayTag(FullManaTag);
+			UE_LOG(LogTemp, Display, TEXT("Tag 'Character.Mana.IsFullMana' Has Been removed From %s"), *GetName());
+		}
+	}
+	// Deactivate Mana Regen
+	else
+	{
+		if (!ASC->HasMatchingGameplayTag(FullManaTag))
+		{
+			UE_LOG(LogTemp, Display, TEXT("Deactivating Mana Regen"));
+			ASC->AddLooseGameplayTag(FullManaTag);
+			UE_LOG(LogTemp, Display, TEXT("Tag 'Character.Mana.IsFullMana' Has been Added to %s"), *GetName());
+		}
+		if (ASC->HasMatchingGameplayTag(ManaTag))
+		{
+			ASC->RemoveLooseGameplayTag(ManaTag);
+			UE_LOG(LogTemp, Display, TEXT("Tag 'Character.Mana.MissMana' Has Been removed From %s"), *GetName());
 		}
 	}
 }

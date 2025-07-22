@@ -45,6 +45,9 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, Category = GameplayEffect)
 	TSubclassOf<UGameplayEffect> GE_HealthRegen;
+
+	UPROPERTY(EditDefaultsOnly, Category = GameplayEffect)
+	TSubclassOf<UGameplayEffect> GE_ManaRegen;
 	
 
 public:
@@ -81,6 +84,13 @@ public:
 	*/
 	UFUNCTION(BlueprintCallable, Category = SetStats)
 	void ActivateHealthRegen(bool Activate = true);
+
+	/**
+	* Activate or Deactivate Mana Regen on the Character by granting and removing concerned Tags
+	* @param Activate true : Activate ManaRegen \n false : Deactivate ManaRegen
+	*/
+	UFUNCTION(BlueprintCallable, Category = SetStats)
+	void ActivateManaRegen(bool Activate = true);
 
 	UFUNCTION(BlueprintNativeEvent, Category = "Event/UI_Function")
 	void OnHealthUpdateEvent();

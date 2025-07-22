@@ -62,10 +62,17 @@ void UCharacterAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModC
 
 	if (Data.EvaluatedData.Attribute == GetManaAttribute())
 	{
-		// Empeche le mana d'être superieur au mana max pour n'importe quel raison
-		if (GetMana() > GetMaxMana())
+		// Give Mana Activation Tag if Character is not Full Mana
+		if (GetMana() < GetMaxMana())
+		{
+			ActivateManaRegen();
+		}
+
+		// Empêche la mana d'être supérieure au mana max pour n'importe quelle raison
+		if (GetMana() >= GetMaxMana())
 		{
 			Mana = GetMaxMana();
+			ActivateManaRegen(false);
 		}
 
 		// Empeche le mana d'être inférieur à 0
@@ -150,4 +157,12 @@ void UCharacterAttributeSet::ActivateHealthRegen(bool Activate)
 		{
 			Character->ActivateHealthRegen(Activate);
 		}
+}
+
+void UCharacterAttributeSet::ActivateManaRegen(bool Activate)
+{
+	if (auto Character = Cast<AMMOATCharacter>(GetOwningActor()))
+	{
+		Character->ActivateManaRegen(Activate);
+	}
 }
