@@ -17,6 +17,9 @@ class MMOAT_API UDeathComponent : public UActorComponent
 private:
 
 protected:
+
+public:
+	
 	/**
 	 * Indicate if the component Should Destroy The Actor On Death
 	 */
@@ -28,11 +31,6 @@ protected:
 	 */
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Destroy", meta = (AllowPrivateAccess = "true"))
 	float DelayBeforeDestroy = 3.0f;
-
-	
-	
-
-public:
 
 private:
 	
