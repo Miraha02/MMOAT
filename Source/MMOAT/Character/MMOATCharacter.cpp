@@ -129,7 +129,25 @@ void AMMOATCharacter::InitAttributes()
 
 void AMMOATCharacter::OnDeath_Implementation()
 {
-	UE_LOG(LogTemp, Display, TEXT("AAMMOATCharacter is Dead"));
+	FGameplayTag AliveTag = FGameplayTag::RequestGameplayTag(FName("Character.IsAlive"));
+	FGameplayTag DeadTag = FGameplayTag::RequestGameplayTag(FName("Character.IsDead"));
+
+	UE_LOG(LogTemp, Display, TEXT("%s is Dead"),*GetName());
+
+	// Le player est Déjà mort
+	if (ASC->HasMatchingGameplayTag(DeadTag))
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Character is already Dead, OnDeath Function Should not be twice or more"));
+		return;
+	}
+
+	// Add and remove Alive and Dead Tags
+	ASC->AddLooseGameplayTag(DeadTag);
+	if (ASC->HasMatchingGameplayTag(AliveTag))
+	{
+		ASC->RemoveLooseGameplayTag(AliveTag);
+	}
+	
 }
 
 void AMMOATCharacter::SetHealth_Implementation(float MaxHealth)
