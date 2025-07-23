@@ -113,7 +113,7 @@ void UCharacterAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModC
 			AMMOATCharacter* Character = Cast<AMMOATCharacter>(GetOwningActor());
 			if (Character)
 			{
-				Character->OnDeathEvent();
+				// Fait mourir le Character
 			}
 		}
 
