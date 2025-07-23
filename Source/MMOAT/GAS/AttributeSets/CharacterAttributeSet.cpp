@@ -109,11 +109,16 @@ void UCharacterAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModC
 		{
 			Health = 0;
 
-			// Call Die Function if Character Has a UDeathComponent
-			UDeathComponent* DeathComponent = GetOwningActor()->FindComponentByClass<UDeathComponent>();
-			if (DeathComponent)
+			// Call the Die Function On the Character Only if it is not Already Dead
+			FGameplayTag DeadTag = FGameplayTag::RequestGameplayTag(FName("Character.IsDead"));
+			if (!GetOwningAbilitySystemComponent()->HasMatchingGameplayTag(DeadTag))
 			{
-				DeathComponent->Die();
+				// Call Die Function if Character Has a UDeathComponent
+				UDeathComponent* DeathComponent = GetOwningActor()->FindComponentByClass<UDeathComponent>();
+				if (DeathComponent)
+				{
+					DeathComponent->Die();
+				}
 			}
 		}
 
