@@ -59,7 +59,9 @@ AMMOATCharacter::AMMOATCharacter()
 	ASC = CreateDefaultSubobject<UAbilitySystemComponent>(TEXT("ASC"));
 	IS_NOT_NULL(ASC, "Ability System Component Creation Failed");
 
-	
+	DeathComponent = CreateDefaultSubobject<UDeathComponent>(TEXT("DeathComponent"));
+	IS_NOT_NULL(DeathComponent, "Death Component Creation Failed");
+	DeathComponent->bDestroyOnDeath = false;
 
 	
 }
