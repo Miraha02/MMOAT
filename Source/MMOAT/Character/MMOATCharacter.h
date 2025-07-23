@@ -7,6 +7,7 @@
 #include "Data/MMOATCharacterData.h"
 #include "GameFramework/Character.h"
 #include "Logging/LogMacros.h"
+#include "MMOAT/DeathComponent.h"
 #include "MMOATCharacter.generated.h"
 
 class USpringArmComponent;
@@ -48,6 +49,9 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, Category = GameplayEffect)
 	TSubclassOf<UGameplayEffect> GE_ManaRegen;
+
+	UPROPERTY(EditDefaultsOnly, Category = DeathComponent)
+	UDeathComponent* DeathComponent;
 	
 
 public:
