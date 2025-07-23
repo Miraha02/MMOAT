@@ -109,11 +109,11 @@ void UCharacterAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModC
 		{
 			Health = 0;
 
-			// Call On Death Event Function If Owning Actor Is a AMMOATCharacter
-			AMMOATCharacter* Character = Cast<AMMOATCharacter>(GetOwningActor());
-			if (Character)
+			// Call Die Function if Character Has a UDeathComponent
+			UDeathComponent* DeathComponent = GetOwningActor()->FindComponentByClass<UDeathComponent>();
+			if (DeathComponent)
 			{
-				// Fait mourir le Character
+				DeathComponent->Die();
 			}
 		}
 
