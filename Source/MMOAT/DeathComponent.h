@@ -9,6 +9,19 @@
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnDeathSignature);
 
+/**
+ * UDeathComponent is used to define all logics around actor's Death
+ *
+ * You can add this Component to Any Actor that should die and/or be destroyed
+ *
+ * To implement function you can either :
+ *	- create a SubClass of UDeathComponent And implement the HandleDeath
+ * Function
+ *	- Bind Every logics you need on Actor Death to the OnDeath Property
+ *
+ *	The Implemented Logics will be Executed after calling the Die Function weither it has
+ *	been implemented via a SubClass of UDeathComponent or via Binding events to OnDeath Property
+ */
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class MMOAT_API UDeathComponent : public UActorComponent
 {
