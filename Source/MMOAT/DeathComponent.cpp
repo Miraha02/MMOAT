@@ -17,12 +17,3 @@ void UDeathComponent::BeginPlay()
 	Super::BeginPlay();
 
 }
-
-
-// Called every frame
-void UDeathComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
-{
-	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
-}
-

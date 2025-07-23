@@ -34,6 +34,13 @@ protected:
 
 public:
 
+private:
+	
+
+protected:
+	// Called when the game starts
+	virtual void BeginPlay() override;
+
 public:	
 	// Sets default values for this component's properties
 	UDeathComponent();
@@ -51,14 +58,5 @@ public:
 	/** Used to trigger all bound functions */
 	UPROPERTY(BlueprintAssignable, Category = "Death")
 	FOnDeathSignature OnDeath;
-
-protected:
-	// Called when the game starts
-	virtual void BeginPlay() override;
-
-public:	
-	// Called every frame
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-
 		
 };
