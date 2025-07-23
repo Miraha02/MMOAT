@@ -79,6 +79,9 @@ protected:
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = SetStats)
 	void SetRegens(float HealthRegen, float ManaRegen);
 
+	UFUNCTION(BlueprintNativeEvent, Category = "Event/Death")
+	void OnDeath();
+
 public:
 	AMMOATCharacter();
 
@@ -101,9 +104,6 @@ public:
 
 	UFUNCTION(BlueprintNativeEvent, Category = "Event/UI_Function")
 	void OnManaUpdateEvent();
-
-	UFUNCTION(BlueprintNativeEvent, Category = "Event/Death")
-	void OnDeathEvent();
 	
 	/** Returns CameraBoom subobject **/
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }

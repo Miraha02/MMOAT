@@ -126,7 +126,7 @@ void AMMOATCharacter::InitAttributes()
 	ASC->AddAttributeSetSubobject(MyAttributeSet);
 }
 
-void AMMOATCharacter::OnDeathEvent_Implementation()
+void AMMOATCharacter::OnDeath_Implementation()
 {
 	UE_LOG(LogTemp, Display, TEXT("AAMMOATCharacter is Dead"));
 }
