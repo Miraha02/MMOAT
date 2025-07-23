@@ -62,6 +62,7 @@ AMMOATCharacter::AMMOATCharacter()
 	DeathComponent = CreateDefaultSubobject<UDeathComponent>(TEXT("DeathComponent"));
 	IS_NOT_NULL(DeathComponent, "Death Component Creation Failed");
 	DeathComponent->bDestroyOnDeath = false;
+	DeathComponent->OnDeath.AddDynamic(this, &AMMOATCharacter::OnDeath);
 
 	
 }
