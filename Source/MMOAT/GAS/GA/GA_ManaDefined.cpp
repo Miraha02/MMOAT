@@ -24,7 +24,7 @@ void UGA_ManaDefined::ApplyCost(const FGameplayAbilitySpecHandle Handle, const F
 
 	FGameplayEffectSpecHandle CostSpecHandle = MakeOutgoingGameplayEffectSpec(CostGameplayEffectClass, GetAbilityLevel());
 
-	CostSpecHandle.Data->SetSetByCallerMagnitude(FGameplayTag::RequestGameplayTag(FName("Effect.Cost.Mana")), -ManaCost);
+	CostSpecHandle.Data->SetSetByCallerMagnitude(FGameplayTag::RequestGameplayTag(FName("Skill.Mana.Cost")), -ManaCost);
 
 	ActorInfo->AbilitySystemComponent->ApplyGameplayEffectSpecToSelf(*CostSpecHandle.Data.Get());
 
