@@ -4,6 +4,7 @@
 #include "GA_ManaDefined.h"
 
 #include "AbilitySystemComponent.h"
+#include "MMOAT/GAS/AttributeSets/CharacterAttributeSet.h"
 #include "MMOAT/GAS/GE/GE_ManaCost.h"
 
 UGA_ManaDefined::UGA_ManaDefined()
@@ -28,4 +29,19 @@ void UGA_ManaDefined::ApplyCost(const FGameplayAbilitySpecHandle Handle, const F
 
 	ActorInfo->AbilitySystemComponent->ApplyGameplayEffectSpecToSelf(*CostSpecHandle.Data.Get());
 
+}
+
+bool UGA_ManaDefined::CheckCost(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo,
+	FGameplayTagContainer* OptionalRelevantTags) const
+{
+	auto AttributeSet = ActorInfo->AbilitySystemComponent->GetSet<UCharacterAttributeSet>();
+	if (AttributeSet)
+	{
+		if (AttributeSet->GetMana() >= ManaCost)
+		{
+			return true;
+		}
+		UE_LOG(LogTemp, Display, TEXT("Bot Enough Mana To Cast %s"), *GetName());
+	}
+	return false;
 }
