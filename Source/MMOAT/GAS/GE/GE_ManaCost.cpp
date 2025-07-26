@@ -10,7 +10,7 @@ UGE_ManaCost::UGE_ManaCost()
 	DurationPolicy = EGameplayEffectDurationType::Instant;
 
 	FGameplayModifierInfo ManaCost;
-	ManaCost.Attribute = FGameplayAttribute(UCharacterAttributeSet::GetHealthAttribute());
+	ManaCost.Attribute = FGameplayAttribute(UCharacterAttributeSet::GetManaAttribute());
 	ManaCost.ModifierOp = EGameplayModOp::Additive;
 
 	FSetByCallerFloat CallerMagnitude;
