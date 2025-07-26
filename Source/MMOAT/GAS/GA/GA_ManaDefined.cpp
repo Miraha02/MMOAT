@@ -9,7 +9,6 @@
 
 UGA_ManaDefined::UGA_ManaDefined()
 {
-	CostGameplayEffectClass = UGE_ManaCost::StaticClass();
 }
 
 void UGA_ManaDefined::ApplyCost(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo,
@@ -23,7 +22,7 @@ void UGA_ManaDefined::ApplyCost(const FGameplayAbilitySpecHandle Handle, const F
 		return;
 	}
 
-	FGameplayEffectSpecHandle CostSpecHandle = MakeOutgoingGameplayEffectSpec(CostGameplayEffectClass, GetAbilityLevel());
+	FGameplayEffectSpecHandle CostSpecHandle = MakeOutgoingGameplayEffectSpec(UGE_ManaCost::StaticClass(), GetAbilityLevel());
 
 	CostSpecHandle.Data->SetSetByCallerMagnitude(FGameplayTag::RequestGameplayTag(FName("Skill.Mana.Cost")), -ManaCost);
 
