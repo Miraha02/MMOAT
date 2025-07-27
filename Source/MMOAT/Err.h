@@ -1,0 +1,1 @@
+#define IS_NOT_NULL(x,msg) checkf(x!=nullptr,TEXT(msg));

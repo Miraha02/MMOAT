@@ -1,0 +1,46 @@
+// Fill out your copyright notice in the Description page of Project Settings.
+
+
+#include "GA_ManaDefined.h"
+
+#include "AbilitySystemComponent.h"
+#include "MMOAT/GAS/AttributeSets/CharacterAttributeSet.h"
+#include "MMOAT/GAS/GE/GE_ManaCost.h"
+
+UGA_ManaDefined::UGA_ManaDefined()
+{
+}
+
+void UGA_ManaDefined::ApplyCost(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo,
+	const FGameplayAbilityActivationInfo ActivationInfo) const
+{
+	Super::ApplyCost(Handle, ActorInfo, ActivationInfo);
+	
+	if (ManaCost < 0.0f)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Mana Cost can't be Negative !!!"));
+		return;
+	}
+
+	FGameplayEffectSpecHandle CostSpecHandle = MakeOutgoingGameplayEffectSpec(UGE_ManaCost::StaticClass(), GetAbilityLevel());
+
+	CostSpecHandle.Data->SetSetByCallerMagnitude(FGameplayTag::RequestGameplayTag(FName("Skill.Mana.Cost")), -ManaCost);
+
+	ActorInfo->AbilitySystemComponent->ApplyGameplayEffectSpecToSelf(*CostSpecHandle.Data.Get());
+
+}
+
+bool UGA_ManaDefined::CheckCost(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo,
+	FGameplayTagContainer* OptionalRelevantTags) const
+{
+	auto AttributeSet = ActorInfo->AbilitySystemComponent->GetSet<UCharacterAttributeSet>();
+	if (AttributeSet)
+	{
+		if (AttributeSet->GetMana() >= ManaCost)
+		{
+			return true;
+		}
+		UE_LOG(LogTemp, Display, TEXT("Bot Enough Mana To Cast %s"), *GetName());
+	}
+	return false;
+}
