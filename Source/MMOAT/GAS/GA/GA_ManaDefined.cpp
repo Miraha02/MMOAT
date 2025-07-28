@@ -40,7 +40,7 @@ bool UGA_ManaDefined::CheckCost(const FGameplayAbilitySpecHandle Handle, const F
 		{
 			return true;
 		}
-		UE_LOG(LogTemp, Display, TEXT("Bot Enough Mana To Cast %s"), *GetName());
+		UE_LOG(LogTemp, Display, TEXT("Not Enough Mana To Cast %s"), *GetName());
 	}
 	return false;
 }
