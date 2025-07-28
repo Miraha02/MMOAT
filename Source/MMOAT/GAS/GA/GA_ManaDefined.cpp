@@ -57,3 +57,16 @@ const FGameplayTagContainer* UGA_ManaDefined::GetCooldownTags() const
 	MutableTags->AppendTags(CooldownTags);
 	return MutableTags;
 }
+
+void UGA_ManaDefined::ApplyCooldown(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo,
+	const FGameplayAbilityActivationInfo ActivationInfo) const
+{
+	UGameplayEffect* CooldownGE = GetCooldownGameplayEffect();
+	if (CooldownGE)
+	{
+		FGameplayEffectSpecHandle SpecHandle = MakeOutgoingGameplayEffectSpec(CooldownGE->GetClass(), GetAbilityLevel());
+		SpecHandle.Data.Get()->DynamicGrantedTags.AppendTags(CooldownTags);
+		SpecHandle.Data.Get()->SetSetByCallerMagnitude(FGameplayTag::RequestGameplayTag(FName("Skill.Cooldown")), CooldownDuration.GetValueAtLevel(GetAbilityLevel()));
+		ApplyGameplayEffectSpecToOwner(Handle, ActorInfo, ActivationInfo, SpecHandle);
+	}
+}
