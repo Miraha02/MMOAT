@@ -5,4 +5,11 @@
 
 UGE_Cooldown::UGE_Cooldown()
 {
+	DurationPolicy = EGameplayEffectDurationType::HasDuration;
+
+	FSetByCallerFloat SetByCallerData;
+	SetByCallerData.DataTag = FGameplayTag::RequestGameplayTag(FName("Skill.Cooldown"));
+
+	DurationMagnitude = FGameplayEffectModifierMagnitude(SetByCallerData);
+
 }
