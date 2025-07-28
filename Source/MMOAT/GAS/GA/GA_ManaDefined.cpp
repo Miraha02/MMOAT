@@ -5,10 +5,12 @@
 
 #include "AbilitySystemComponent.h"
 #include "MMOAT/GAS/AttributeSets/CharacterAttributeSet.h"
+#include "MMOAT/GAS/GE/GE_Cooldown.h"
 #include "MMOAT/GAS/GE/GE_ManaCost.h"
 
 UGA_ManaDefined::UGA_ManaDefined()
 {
+	CooldownGameplayEffectClass = UGE_Cooldown::StaticClass();
 }
 
 void UGA_ManaDefined::ApplyCost(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo,
