@@ -260,3 +260,15 @@ void AMMOATCharacter::ActivateManaRegen(bool Activate)
 		}
 	}
 }
+
+void AMMOATCharacter::LaunchSpell1()
+{
+}
+
+void AMMOATCharacter::LaunchSpell2()
+{
+}
+
+void AMMOATCharacter::LaunchSpell3()
+{
+}

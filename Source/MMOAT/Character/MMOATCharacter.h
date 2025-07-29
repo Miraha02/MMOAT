@@ -104,6 +104,15 @@ public:
 
 	UFUNCTION(BlueprintNativeEvent, Category = "Event/UI_Function")
 	void OnManaUpdateEvent();
+
+	UFUNCTION(BlueprintCallable, Category = Spell)
+	void LaunchSpell1();
+
+	UFUNCTION(BlueprintCallable, Category = Spell)
+	void LaunchSpell2();
+
+	UFUNCTION(BlueprintCallable, Category = Spell)
+	void LaunchSpell3();
 	
 	/** Returns CameraBoom subobject **/
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
