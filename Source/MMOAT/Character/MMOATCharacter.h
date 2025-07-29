@@ -72,7 +72,7 @@ protected:
 	 * Array that contains every Spells of the Character (if None, the spell should not be able to be used)
 	 */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Spells, meta = (AllowPrivateAccess = "true"))
-	FSpellSet* Spells;
+	FSpellSet Spells;
 	
 
 public:

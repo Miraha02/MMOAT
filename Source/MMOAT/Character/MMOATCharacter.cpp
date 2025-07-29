@@ -261,12 +261,6 @@ void AMMOATCharacter::ActivateManaRegen(bool Activate)
 	}
 }
 
-#define CHECK_SPELLS if (!Spells)\
-{\
-	UE_LOG(LogTemp, Error, TEXT("Error, Spells is Null !!!"));\
-	return;\
-}
-
 #define LAUNCH_SPELLS(SpellClass, SpellName)\
 UE_LOG(LogTemp, Display, TEXT("Launching %s ..."), SpellName);\
 if (!SpellClass)\
@@ -277,18 +271,15 @@ ASC->TryActivateAbilityByClass(SpellClass);
 
 void AMMOATCharacter::LaunchSpell1()
 {
-	CHECK_SPELLS;
-	LAUNCH_SPELLS(Spells->Spell1, "Spell 1");
+	LAUNCH_SPELLS(Spells.Spell1, "Spell 1");
 }
 
 void AMMOATCharacter::LaunchSpell2()
 {
-	CHECK_SPELLS;
-	LAUNCH_SPELLS(Spells->Spell2, "Spell 2");
+	LAUNCH_SPELLS(Spells.Spell2, "Spell 2");
 }
 
 void AMMOATCharacter::LaunchSpell3()
 {
-	CHECK_SPELLS;
-	LAUNCH_SPELLS(Spells->Spell3, "Spell 3");
+	LAUNCH_SPELLS(Spells.Spell3, "Spell 3");
 }
