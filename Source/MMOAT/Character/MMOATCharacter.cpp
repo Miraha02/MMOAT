@@ -260,3 +260,26 @@ void AMMOATCharacter::ActivateManaRegen(bool Activate)
 		}
 	}
 }
+
+#define LAUNCH_SPELLS(SpellClass, SpellName)\
+UE_LOG(LogTemp, Display, TEXT("Launching %hs ..."), SpellName);\
+if (!SpellClass)\
+{\
+	UE_LOG(LogTemp, Warning, TEXT("No %s Defined !"), TEXT(SpellName));\
+}\
+ASC->TryActivateAbilityByClass(SpellClass);
+
+void AMMOATCharacter::LaunchSpell1()
+{
+	LAUNCH_SPELLS(Spells.Spell1, "Spell 1");
+}
+
+void AMMOATCharacter::LaunchSpell2()
+{
+	LAUNCH_SPELLS(Spells.Spell2, "Spell 2");
+}
+
+void AMMOATCharacter::LaunchSpell3()
+{
+	LAUNCH_SPELLS(Spells.Spell3, "Spell 3");
+}

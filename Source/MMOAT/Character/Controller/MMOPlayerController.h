@@ -35,6 +35,15 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Input")
 	UInputAction* JumpAction;
 
+	UPROPERTY(EditDefaultsOnly, Category = "Input/Spell")
+	UInputAction* SpellAction1;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Input/Spell")
+	UInputAction* SpellAction2;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Input/Spell")
+	UInputAction* SpellAction3;
+
 public:
 
 private:
@@ -48,6 +57,10 @@ protected:
 	void Move(const FInputActionValue& Value);
 	void Look(const FInputActionValue& Value);
 	void Jump(const FInputActionValue& Value);
+
+	void Spell1(const FInputActionValue& Value);
+	void Spell2(const FInputActionValue& Value);
+	void Spell3(const FInputActionValue& Value);
 
 public:
 	
