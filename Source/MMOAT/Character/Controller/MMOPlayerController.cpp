@@ -7,6 +7,15 @@
 #include "EnhancedInputSubsystems.h"
 #include "GameFramework/Character.h"
 #include "MMOAT/Err.h"
+#include "MMOAT/Character/MMOATCharacter.h"
+
+#define CAST_TO_MMOATCHARACTER\
+auto* MMOATCharacter = Cast<AMMOATCharacter>(GetCharacter());\
+	if (!MMOATCharacter)\
+	{\
+		UE_LOG(LogTemp, Error, TEXT("Controlled Character is not a MMOATCharacter"));\
+		return;\
+	}
 
 AMMOPlayerController::AMMOPlayerController()
 {
@@ -80,4 +89,22 @@ void AMMOPlayerController::Look(const FInputActionValue& Value)
 void AMMOPlayerController::Jump(const FInputActionValue& Value)
 {
 	GetCharacter()->Jump();
+}
+
+void AMMOPlayerController::Spell1(const FInputActionValue& Value)
+{
+	CAST_TO_MMOATCHARACTER
+	MMOATCharacter->LaunchSpell1();
+}
+
+void AMMOPlayerController::Spell2(const FInputActionValue& Value)
+{
+	CAST_TO_MMOATCHARACTER
+	MMOATCharacter->LaunchSpell2();
+}
+
+void AMMOPlayerController::Spell3(const FInputActionValue& Value)
+{
+	CAST_TO_MMOATCHARACTER
+	MMOATCharacter->LaunchSpell3();
 }

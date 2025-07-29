@@ -58,6 +58,10 @@ protected:
 	void Look(const FInputActionValue& Value);
 	void Jump(const FInputActionValue& Value);
 
+	void Spell1(const FInputActionValue& Value);
+	void Spell2(const FInputActionValue& Value);
+	void Spell3(const FInputActionValue& Value);
+
 public:
 	
 };
