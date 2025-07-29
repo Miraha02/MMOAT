@@ -9,8 +9,8 @@
 #include "MMOAT/Err.h"
 #include "MMOAT/Character/MMOATCharacter.h"
 
-#define CAST_TO_MMOATCHARACTER\
-auto* MMOATCharacter = Cast<AMMOATCharacter>(GetCharacter());\
+#define CAST_TO_MMOATCHARACTER \
+auto MMOATCharacter = Cast<AMMOATCharacter>(GetCharacter());\
 	if (!MMOATCharacter)\
 	{\
 		UE_LOG(LogTemp, Error, TEXT("Controlled Character is not a MMOATCharacter"));\

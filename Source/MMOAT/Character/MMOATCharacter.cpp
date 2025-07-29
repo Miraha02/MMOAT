@@ -262,10 +262,10 @@ void AMMOATCharacter::ActivateManaRegen(bool Activate)
 }
 
 #define LAUNCH_SPELLS(SpellClass, SpellName)\
-UE_LOG(LogTemp, Display, TEXT("Launching %s ..."), SpellName);\
+UE_LOG(LogTemp, Display, TEXT("Launching %hs ..."), SpellName);\
 if (!SpellClass)\
 {\
-	UE_LOG(LogTemp, Warning, TEXT("No %s Defined !"), SpellName);\
+	UE_LOG(LogTemp, Warning, TEXT("No %s Defined !"), TEXT(SpellName));\
 }\
 ASC->TryActivateAbilityByClass(SpellClass);
 
