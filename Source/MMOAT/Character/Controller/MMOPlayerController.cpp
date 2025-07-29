@@ -63,6 +63,18 @@ void AMMOPlayerController::SetupInputComponent()
 		{
 			EnhancedInput->BindAction(JumpAction, ETriggerEvent::Started, this, &AMMOPlayerController::Jump);
 		}
+		if (SpellAction1)
+		{
+			EnhancedInput->BindAction(SpellAction1, ETriggerEvent::Started, this, &AMMOPlayerController::Spell1);
+		}
+		if (SpellAction2)
+		{
+			EnhancedInput->BindAction(SpellAction2, ETriggerEvent::Started, this, &AMMOPlayerController::Spell2);
+		}
+		if (SpellAction3)
+		{
+			EnhancedInput->BindAction(SpellAction3, ETriggerEvent::Started, this, &AMMOPlayerController::Spell3);
+		}
 	}
 }
 
