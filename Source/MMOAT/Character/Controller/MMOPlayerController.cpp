@@ -31,6 +31,9 @@ void AMMOPlayerController::BeginPlay()
 	IS_NOT_NULL(MoveAction,"Move Action is Null");
 	IS_NOT_NULL(LookAction,"Look Action is Null");
 	IS_NOT_NULL(JumpAction,"Jump Action is Null");
+	IS_NOT_NULL(SpellAction1,"Spell Action1 is Null");
+	IS_NOT_NULL(SpellAction2,"Spell Action2 is Null");
+	IS_NOT_NULL(SpellAction3,"Spell Action3 is Null");
 
 	if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer()))
 	{
