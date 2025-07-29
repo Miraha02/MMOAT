@@ -18,6 +18,21 @@ struct FInputActionValue;
 
 DECLARE_LOG_CATEGORY_EXTERN(LogTemplateCharacter, Log, All);
 
+USTRUCT(BlueprintType)
+struct FSpellSet
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TSubclassOf<UGameplayAbility> Spell1;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TSubclassOf<UGameplayAbility> Spell2;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TSubclassOf<UGameplayAbility> Spell3;
+};
+
 UCLASS(config=Game)
 class AMMOATCharacter : public ACharacter
 {
@@ -52,6 +67,12 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, Category = DeathComponent)
 	UDeathComponent* DeathComponent;
+
+	/**
+	 * Array that contains every Spells of the Character (if None, the spell should not be able to be used)
+	 */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Spells, meta = (AllowPrivateAccess = "true"))
+	FSpellSet Spells;
 	
 
 public:
