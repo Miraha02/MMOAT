@@ -35,6 +35,15 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Input")
 	UInputAction* JumpAction;
 
+	UPROPERTY(EditDefaultsOnly, Category = "Input/Spell")
+	UInputAction* SpellAction1;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Input/Spell")
+	UInputAction* SpellAction2;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Input/Spell")
+	UInputAction* SpellAction3;
+
 public:
 
 private:
