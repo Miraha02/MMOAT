@@ -23,6 +23,9 @@ ABP_Spell_Projectile::ABP_Spell_Projectile()
 	ProjectileMovementComponent = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("ProjectileMovement"));
 	IS_NOT_NULL(ProjectileMovementComponent, "ProjectileMovementComponent Creation Failed !");
 	ProjectileMovementComponent->ProjectileGravityScale = 0.0f;
+
+	// Replicate this actor to everyone
+	SetReplicates(true);
 	
 	
 }
