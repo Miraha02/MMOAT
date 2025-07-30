@@ -34,7 +34,8 @@ ABP_Spell_Projectile::ABP_Spell_Projectile()
 void ABP_Spell_Projectile::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
+	IS_NOT_NULL(ParticleSystem->Template, TEXT("ParticleSystem->Template has not been initialized in BP_Spell_Projectile Subclasses");
 }
 
 // Called every frame
@@ -43,3 +44,6 @@ void ABP_Spell_Projectile::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 }
 
+void ABP_Spell_Projectile::OnSpellImpact_Implementation()
+{
+}

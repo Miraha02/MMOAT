@@ -7,7 +7,7 @@
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "BP_Spell_Projectile.generated.h"
 
-UCLASS()
+UCLASS(Abstract, Blueprintable)
 class MMOAT_API ABP_Spell_Projectile : public AActor
 {
 	GENERATED_BODY()
@@ -29,6 +29,13 @@ private:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+	// ✅ Méthode implémentable en Blueprint OU surchargeable en C++
+	UFUNCTION(BlueprintNativeEvent, Category = "Spell")
+	void OnSpellImpact();
+
+	// Version C++ à override
+	virtual void OnSpellImpact_Implementation();
 
 public:
 	// Sets default values for this actor's properties
