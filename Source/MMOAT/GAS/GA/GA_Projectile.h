@@ -24,12 +24,21 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, Category = Projectile)
 	TSubclassOf<ASpell_Projectile> ProjectileClass;
+
+	/**
+	 * The bone name where the Projectile should be spawn (Default : hand_r)
+	 */
+	UPROPERTY(EditDefaultsOnly, Category = Projectile)
+	FName BoneName;
 	
 public:
 
 private:
 
 	UGA_Projectile();
+
+	UFUNCTION()
+	void SpawnProjectileOnHand(FGameplayEventData Payload);
 
 protected:
 

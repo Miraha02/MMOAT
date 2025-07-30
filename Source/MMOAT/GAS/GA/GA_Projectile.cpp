@@ -5,6 +5,7 @@
 
 #include "Abilities/Tasks/AbilityTask_PlayMontageAndWait.h"
 #include "Abilities/Tasks/AbilityTask_WaitGameplayEvent.h"
+#include "MMOAT/Character/MMOATCharacter.h"
 
 UGA_Projectile::UGA_Projectile()
 {
@@ -12,20 +13,20 @@ UGA_Projectile::UGA_Projectile()
 }
 
 void UGA_Projectile::ActivateAbility(const FGameplayAbilitySpecHandle Handle,
-	const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo,
-	const FGameplayEventData* TriggerEventData)
+                                     const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo,
+                                     const FGameplayEventData* TriggerEventData)
 {
 	Super::ActivateAbility(Handle, ActorInfo, ActivationInfo, TriggerEventData);
 
 	if (!Montage)
 	{
-		UE_LOG(LogTemp, Error, TEXT("%s() No Montage was set!"), __FUNCTION__);
+		UE_LOG(LogTemp, Error, TEXT("No Montage was set!"));
 		EndAbility(Handle, ActorInfo, ActivationInfo, true, false);
 		return;
 	}
 	if (!ProjectileClass)
 	{
-		UE_LOG(LogTemp, Error, TEXT("%s() No projectile Settled!"), __FUNCTION__);
+		UE_LOG(LogTemp, Error, TEXT("No projectile Settled!"));
 		EndAbility(Handle, ActorInfo, ActivationInfo, true, false);
 		return;
 	}
@@ -66,8 +67,42 @@ void UGA_Projectile::ActivateAbility(const FGameplayAbilitySpecHandle Handle,
 
 	if (EventTask)
 	{
-		EventTask->EventReceived.AddDynamic(this, &UMyGameplayAbility::OnProjectileEventReceived);
+		EventTask->EventReceived.AddDynamic(this, &UGA_Projectile::SpawnProjectileOnHand);
 		EventTask->ReadyForActivation();
 	}
 	
+}
+
+void UGA_Projectile::SpawnProjectileOnHand(FGameplayEventData Payload)
+{
+	AActor* AvatarActor = GetAvatarActorFromActorInfo();
+	if (!AvatarActor) return;
+	
+	AMMOATCharacter* MMOATCharacter = Cast<AMMOATCharacter>(AvatarActor);
+	if (!MMOATCharacter) return;
+
+	USkeletalMeshComponent* MeshComp = MMOATCharacter->GetMesh();
+	if (!MeshComp) return;
+	
+	FVector SpawnLocation = MeshComp->GetSocketLocation(BoneName != NAME_None ? BoneName : FName("hand_r"));
+	FRotator SpawnRotation = AvatarActor->GetActorRotation();
+
+	FActorSpawnParameters SpawnParams;
+	SpawnParams.Owner = GetOwningActorFromActorInfo();
+	SpawnParams.Instigator = MMOATCharacter;
+	SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+	
+	if (ProjectileClass)
+	{
+		GetWorld()->SpawnActor<AActor>(
+			ProjectileClass,
+			SpawnLocation,
+			SpawnRotation,
+			SpawnParams
+		);
+	}
+
+	// Commit l'ability après le spawn
+	CommitAbility(GetCurrentAbilitySpecHandle(), GetCurrentActorInfo(), GetCurrentActivationInfo());
+
 }
