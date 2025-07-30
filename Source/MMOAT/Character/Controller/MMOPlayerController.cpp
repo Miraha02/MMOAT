@@ -43,6 +43,9 @@ void AMMOPlayerController::BeginPlay()
 			Subsystem->AddMappingContext(DefaultMappingContext, 0);
 		}
 	}
+
+	// Add Stats UI to Controller if it is local client
+	CreateStatsWidget();
 	
 }
 
