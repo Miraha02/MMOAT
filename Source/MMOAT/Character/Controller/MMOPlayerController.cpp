@@ -36,6 +36,8 @@ void AMMOPlayerController::BeginPlay()
 	IS_NOT_NULL(SpellAction2,"Spell Action2 is Null");
 	IS_NOT_NULL(SpellAction3,"Spell Action3 is Null");
 
+	IS_NOT_NULL(StatsWidgetClass,"Stats Widget is Null");
+
 	if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer()))
 	{
 		if (DefaultMappingContext)
