@@ -75,6 +75,10 @@ void UGA_Projectile::ActivateAbility(const FGameplayAbilitySpecHandle Handle,
 
 void UGA_Projectile::SpawnProjectileOnHand(FGameplayEventData Payload)
 {
+	if (!HasAuthority(&CurrentActivationInfo))
+	{
+		return;
+	}
 	AActor* AvatarActor = GetAvatarActorFromActorInfo();
 	if (!AvatarActor) return;
 	
