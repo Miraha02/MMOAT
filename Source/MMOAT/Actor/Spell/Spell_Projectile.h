@@ -5,10 +5,10 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "GameFramework/ProjectileMovementComponent.h"
-#include "BP_Spell_Projectile.generated.h"
+#include "Spell_Projectile.generated.h"
 
 UCLASS(Abstract, Blueprintable)
-class MMOAT_API ABP_Spell_Projectile : public AActor
+class MMOAT_API ASpell_Projectile : public AActor
 {
 	GENERATED_BODY()
 
@@ -39,7 +39,7 @@ protected:
 
 public:
 	// Sets default values for this actor's properties
-	ABP_Spell_Projectile();
+	ASpell_Projectile();
 	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
