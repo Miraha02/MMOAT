@@ -20,6 +20,14 @@ UCharacterAttributeSet::UCharacterAttributeSet() {
 
 void UCharacterAttributeSet::OnRep_Health(const FGameplayAttributeData& OldHealth) {
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UCharacterAttributeSet, Health, OldHealth);
+
+	if (AActor* Owner = GetOwningActor())
+	{
+		if (AMMOATCharacter* Character = Cast<AMMOATCharacter>(Owner))
+		{
+			Character->OnHealthUpdateEvent(); // ← Ajoute ta logique d’UI ici
+		}
+	}
 }
 
 void UCharacterAttributeSet::OnRep_MaxHealth(const FGameplayAttributeData& OldMaxHealth) {
@@ -32,6 +40,14 @@ void UCharacterAttributeSet::OnRep_HealthRegen(const FGameplayAttributeData& Old
 
 void UCharacterAttributeSet::OnRep_Mana(const FGameplayAttributeData& OldMana) {
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UCharacterAttributeSet, Mana, OldMana);
+
+	if (AActor* Owner = GetOwningActor())
+	{
+		if (AMMOATCharacter* Character = Cast<AMMOATCharacter>(Owner))
+		{
+			Character->OnManaUpdateEvent();
+		}
+	}
 }
 
 void UCharacterAttributeSet::OnRep_MaxMana(const FGameplayAttributeData& OldMaxMana) {
@@ -80,13 +96,7 @@ void UCharacterAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModC
 		{
 			Mana = 0;
 		}
-
-		// Update Mana UI If Owning Actor is A AMMOATCharacter
-		AMMOATCharacter* Character = Cast<AMMOATCharacter>(GetOwningActor());
-		if (Character)
-		{
-			Character->OnManaUpdateEvent();
-		}
+		
 	}
 
 	if (Data.EvaluatedData.Attribute == GetHealthAttribute())
@@ -120,13 +130,6 @@ void UCharacterAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModC
 					DeathComponent->Die();
 				}
 			}
-		}
-
-		// Update Health UI If Owning Actor is A AMMOATCharacter
-		AMMOATCharacter* Character = Cast<AMMOATCharacter>(GetOwningActor());
-		if (Character)
-		{
-			Character->OnHealthUpdateEvent();
 		}
 	}
 }
