@@ -23,7 +23,7 @@ ABP_Spell_Projectile::ABP_Spell_Projectile()
 	ProjectileMovementComponent = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("ProjectileMovement"));
 	IS_NOT_NULL(ProjectileMovementComponent, "ProjectileMovementComponent Creation Failed !");
 	ProjectileMovementComponent->ProjectileGravityScale = 0.0f;
-
+	
 	// Replicate this actor to everyone
 	SetReplicates(true);
 	
@@ -35,7 +35,7 @@ void ABP_Spell_Projectile::BeginPlay()
 {
 	Super::BeginPlay();
 
-	IS_NOT_NULL(ParticleSystem->Template, TEXT("ParticleSystem->Template has not been initialized in BP_Spell_Projectile Subclasses");
+	IS_NOT_NULL(ParticleSystem->Template, "ParticleSystem->Template has not been initialized in BP_Spell_Projectile Subclasses");
 }
 
 // Called every frame
