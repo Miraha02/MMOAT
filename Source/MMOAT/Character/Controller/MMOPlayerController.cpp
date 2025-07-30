@@ -5,6 +5,7 @@
 
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
+#include "Blueprint/UserWidget.h"
 #include "GameFramework/Character.h"
 #include "MMOAT/Err.h"
 #include "MMOAT/Character/MMOATCharacter.h"
@@ -124,6 +125,17 @@ void AMMOPlayerController::Spell3(const FInputActionValue& Value)
 	MMOATCharacter->LaunchSpell3();
 }
 
-void AMMOPlayerController::CreateWidget()
+void AMMOPlayerController::CreateStatsWidget()
 {
+	if (IsLocalController())
+	{
+		if (StatsWidgetClass)
+		{
+			StatsRef = CreateWidget(this, StatsWidgetClass);
+			if (StatsRef)
+			{
+				StatsRef->AddToViewport();
+			}
+		}
+	}
 }
