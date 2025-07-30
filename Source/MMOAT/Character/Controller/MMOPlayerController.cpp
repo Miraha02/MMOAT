@@ -123,3 +123,7 @@ void AMMOPlayerController::Spell3(const FInputActionValue& Value)
 	CAST_TO_MMOATCHARACTER
 	MMOATCharacter->LaunchSpell3();
 }
+
+void AMMOPlayerController::CreateWidget()
+{
+}

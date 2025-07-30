@@ -53,6 +53,10 @@ protected:
 public:
 
 private:
+	/**
+	 * Create the Stats Widget if Controller is client
+	 */
+	void CreateWidget();
 	
 protected:
 
