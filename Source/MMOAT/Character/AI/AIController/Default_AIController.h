@@ -13,11 +13,15 @@ class MMOAT_API ADefault_AIController : public AAIController
 
 private:
 
+	UBlackboardComponent* BlackboardComp;
+
 protected:
 	
 public:
 
 private:
+
+	void SetNearestPlayerInBlackboard();
 
 protected:
 	// Called when the game starts or when spawned
