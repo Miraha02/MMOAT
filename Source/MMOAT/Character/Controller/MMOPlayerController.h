@@ -5,8 +5,12 @@
 #include "CoreMinimal.h"
 #include "InputAction.h"
 #include "InputMappingContext.h"
+#include "MMOAT/Interactable.h"
 #include "GameFramework/PlayerController.h"
 #include "MMOPlayerController.generated.h"
+
+
+class IInteractable;
 
 /**
  * 
@@ -35,6 +39,9 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Input")
 	UInputAction* JumpAction;
 
+	UPROPERTY(EditDefaultsOnly, Category = "Input")
+	UInputAction* InteractAction;
+
 	UPROPERTY(EditDefaultsOnly, Category = "Input/Spell")
 	UInputAction* SpellAction1;
 
@@ -43,6 +50,7 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, Category = "Input/Spell")
 	UInputAction* SpellAction3;
+
 
 public:
 
@@ -57,11 +65,20 @@ protected:
 	void Move(const FInputActionValue& Value);
 	void Look(const FInputActionValue& Value);
 	void Jump(const FInputActionValue& Value);
+	void Interact(const FInputActionValue& Value);
 
 	void Spell1(const FInputActionValue& Value);
 	void Spell2(const FInputActionValue& Value);
 	void Spell3(const FInputActionValue& Value);
 
+	UPROPERTY()
+	TArray<AActor*> OverlappingInteractables;
+
 public:
-	
+	UFUNCTION(BlueprintCallable, Category = "Interaction")
+	void AddInteractable(AActor* Interactable);
+
+	// Déclare la fonction RemoveInteractable de la même manière
+	UFUNCTION(BlueprintCallable, Category = "Interaction")
+	void RemoveInteractable(AActor* Interactable);
 };

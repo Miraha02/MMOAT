@@ -31,6 +31,7 @@ void AMMOPlayerController::BeginPlay()
 	IS_NOT_NULL(MoveAction,"Move Action is Null");
 	IS_NOT_NULL(LookAction,"Look Action is Null");
 	IS_NOT_NULL(JumpAction,"Jump Action is Null");
+	IS_NOT_NULL(InteractAction,"Interact Action is Null");
 	IS_NOT_NULL(SpellAction1,"Spell Action1 is Null");
 	IS_NOT_NULL(SpellAction2,"Spell Action2 is Null");
 	IS_NOT_NULL(SpellAction3,"Spell Action3 is Null");
@@ -62,6 +63,10 @@ void AMMOPlayerController::SetupInputComponent()
 		if (JumpAction)
 		{
 			EnhancedInput->BindAction(JumpAction, ETriggerEvent::Started, this, &AMMOPlayerController::Jump);
+		}
+		if (InteractAction)
+		{
+			EnhancedInput->BindAction(InteractAction, ETriggerEvent::Started, this, &AMMOPlayerController::Interact);
 		}
 		if (SpellAction1)
 		{
@@ -106,6 +111,20 @@ void AMMOPlayerController::Jump(const FInputActionValue& Value)
 	GetCharacter()->Jump();
 }
 
+void AMMOPlayerController::Interact(const FInputActionValue& Value)
+{
+	if (OverlappingInteractables.Num() > 0)
+	{
+		// Appelle Interact sur le plus proche, ou le premier
+		AActor* Closest = OverlappingInteractables[0];
+
+		if (Closest->GetClass()->ImplementsInterface(UInteractable::StaticClass()))
+		{
+			IInteractable::Execute_Interact(Closest, this);
+		}
+	}
+}
+
 void AMMOPlayerController::Spell1(const FInputActionValue& Value)
 {
 	CAST_TO_MMOATCHARACTER
@@ -122,4 +141,18 @@ void AMMOPlayerController::Spell3(const FInputActionValue& Value)
 {
 	CAST_TO_MMOATCHARACTER
 	MMOATCharacter->LaunchSpell3();
+}
+
+void AMMOPlayerController::AddInteractable(AActor* Interactable)
+{
+
+	if (Interactable && !OverlappingInteractables.Contains(Interactable))
+	{
+		OverlappingInteractables.Add(Interactable);
+	}
+}
+
+void AMMOPlayerController::RemoveInteractable(AActor* Interactable)
+{
+	OverlappingInteractables.Remove(Interactable);
 }
