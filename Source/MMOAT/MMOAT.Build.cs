@@ -33,7 +33,8 @@ public class MMOAT : ModuleRules
             "GameplayAbilities", 
             "GameplayTasks", 
             "GameplayTags",
-            "UMG"
+            "UMG",
+            "AIModule"
         });
 
         // Modules privés (si nécessaire)
