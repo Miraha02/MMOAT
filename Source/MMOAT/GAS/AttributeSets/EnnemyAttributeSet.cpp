@@ -2,3 +2,27 @@
 
 
 #include "EnnemyAttributeSet.h"
+
+#include "Net/UnrealNetwork.h"
+
+UEnnemyAttributeSet::UEnnemyAttributeSet()
+{
+}
+
+void UEnnemyAttributeSet::OnRep_Health(const FGameplayAttributeData& OldHealth)
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UEnnemyAttributeSet, Health, OldHealth);
+}
+
+void UEnnemyAttributeSet::OnRep_Damage(const FGameplayAttributeData& OldDamage)
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UEnnemyAttributeSet, Damage, OldDamage);
+}
+
+void UEnnemyAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+	DOREPLIFETIME(UEnnemyAttributeSet, Health);
+	DOREPLIFETIME(UEnnemyAttributeSet, Damage);
+}
