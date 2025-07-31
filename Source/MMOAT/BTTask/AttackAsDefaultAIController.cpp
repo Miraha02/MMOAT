@@ -12,15 +12,17 @@ UAttackAsDefaultAIController::UAttackAsDefaultAIController()
 
 EBTNodeResult::Type UAttackAsDefaultAIController::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
-	return Super::ExecuteTask(OwnerComp, NodeMemory);
+	Super::ExecuteTask(OwnerComp, NodeMemory);
 
 	AAIController* AIController = OwnerComp.GetAIOwner();
 	ADefault_AIController* Default_AIController = Cast<ADefault_AIController>(AIController->GetPawn());
 
 	if (Default_AIController)
 	{
-		Default_AIController->Default_Attack();
-		return EBTNodeResult::Succeeded;
+		if (Default_AIController->Default_Attack())
+		{
+			return EBTNodeResult::Succeeded;
+		}
 	}
 
 	return EBTNodeResult::Failed;

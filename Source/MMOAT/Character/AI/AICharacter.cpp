@@ -44,6 +44,11 @@ void AAICharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 }
 
+bool AAICharacter::Default_Attack_Implementation()
+{
+	return false;
+}
+
 void AAICharacter::InitAttributes()
 {
 	NewObject<UEnnemyAttributeSet>(this, UEnnemyAttributeSet::StaticClass());

@@ -5,6 +5,7 @@
 
 #include "BehaviorTree/BlackboardComponent.h"
 #include "MMOAT/Character/MMOATCharacter.h"
+#include "MMOAT/Character/AI/AICharacter.h"
 
 
 // Sets default values
@@ -29,6 +30,17 @@ void ADefault_AIController::Tick(float DeltaTime)
 	SetNearestPlayerInBlackboard();
 	
 }
+
+bool ADefault_AIController::Default_Attack()
+{
+	AAICharacter* AIChar = Cast<AAICharacter>(GetPawn());
+	if (AIChar)
+	{
+		return AIChar->Default_Attack();
+	}
+	return false;
+}
+
 
 void ADefault_AIController::SetNearestPlayerInBlackboard()
 {
