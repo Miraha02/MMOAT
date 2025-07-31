@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "AIController/Default_AIController.h"
 #include "GameFramework/Character.h"
 #include "AICharacter.generated.h"
 
@@ -14,6 +15,9 @@ class MMOAT_API AAICharacter : public ACharacter
 private:
 
 protected:
+
+	UPROPERTY(EditDefaultsOnly, Category = AIController)
+	ADefault_AIController* AIController;
 	
 public:
 
