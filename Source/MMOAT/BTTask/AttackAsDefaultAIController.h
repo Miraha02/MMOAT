@@ -13,5 +13,23 @@ UCLASS()
 class MMOAT_API UAttackAsDefaultAIController : public UBTTaskNode
 {
 	GENERATED_BODY()
+
+private:
+
+protected:
+
+public:
+
+private:
+
+	UAttackAsDefaultAIController();
+
+protected:
+
+	virtual EBTNodeResult::Type ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) override;
+
+public:
+
+	
 	
 };
