@@ -3,7 +3,9 @@
 
 #include "AICharacter.h"
 
+#include "AbilitySystemComponent.h"
 #include "MMOAT/Err.h"
+#include "MMOAT/GAS/AttributeSets/EnnemyAttributeSet.h"
 
 
 // Sets default values
@@ -14,9 +16,10 @@ AAICharacter::AAICharacter()
 	bReplicates = true;
 
 	AIController = CreateDefaultSubobject<ADefault_AIController>(TEXT("AIController"));
-	IS_NOT_NULL(AIController, "AIConrtoller Creation Failed");
+	IS_NOT_NULL(AIController, "AIController Creation Failed");
 
-	
+	ASC = CreateDefaultSubobject<UAbilitySystemComponent>(TEXT("ASC"));
+	IS_NOT_NULL(ASC, "Ability System Component Creation Failed");
 }
 
 // Called when the game starts or when spawned
@@ -25,6 +28,8 @@ void AAICharacter::BeginPlay()
 	Super::BeginPlay();
 	
 	SetReplicateMovement(true);
+
+	InitAttributes();
 }
 
 // Called every frame
@@ -39,3 +44,8 @@ void AAICharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 }
 
+void AAICharacter::InitAttributes()
+{
+	NewObject<UEnnemyAttributeSet>(this, UEnnemyAttributeSet::StaticClass());
+	ASC->AddAttributeSetSubobject(IA_Attributes);
+}

@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "AttributeSet.h"
 #include "AIController/Default_AIController.h"
 #include "GameFramework/Character.h"
 #include "AICharacter.generated.h"
@@ -18,9 +19,20 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, Category = AIController)
 	ADefault_AIController* AIController;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = ASC, meta = (AllowPrivateAccess = "true"))
+	UAbilitySystemComponent* ASC;
+	
+	UPROPERTY()
+	UAttributeSet* IA_Attributes;
 	
 public:
 
+	/**
+	 * Initialize Attribute Set
+	 */
+	void InitAttributes();
+	
 private:
 
 protected:
