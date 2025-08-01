@@ -16,9 +16,6 @@ AAICharacter::AAICharacter()
 	PrimaryActorTick.bCanEverTick = true;
 	bReplicates = true;
 
-	AIController = CreateDefaultSubobject<ADefault_AIController>(TEXT("AIController"));
-	IS_NOT_NULL(AIController, "AIController Creation Failed");
-
 	ASC = CreateDefaultSubobject<UAbilitySystemComponent>(TEXT("ASC"));
 	IS_NOT_NULL(ASC, "Ability System Component Creation Failed");
 }

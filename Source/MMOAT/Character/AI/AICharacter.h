@@ -17,9 +17,6 @@ private:
 
 protected:
 
-	UPROPERTY(EditDefaultsOnly, Category = AIController)
-	ADefault_AIController* AIController;
-
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = ASC, meta = (AllowPrivateAccess = "true"))
 	UAbilitySystemComponent* ASC;
 	
