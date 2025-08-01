@@ -14,7 +14,8 @@ UEnnemyDeathComponent::UEnnemyDeathComponent()
 	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = true;
 
-	// ...
+	bDestroyOnDeath = true;
+	DelayBeforeDestroy = 3.0f;
 }
 
 
