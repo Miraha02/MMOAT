@@ -66,6 +66,10 @@ void ADefault_AIController::SetNearestPlayerInBlackboard()
 		if (!IsValid(TestChar) || TestChar == ControlledPawn || TestChar->GetWorld() != World)
 			continue;
 
+		// Check That Char is Alive
+		if (!TestChar->ActorHasTag("Character.IsAlive") || TestChar->ActorHasTag("Character.IsDead"))
+			continue;
+		
 		float SqrDist = FVector::DistSquared(MyLocation, TestChar->GetActorLocation());
 		if (SqrDist < ClosestSqrDistance)
 		{
