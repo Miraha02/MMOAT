@@ -27,7 +27,7 @@ ASpell_Projectile::ASpell_Projectile()
 	ProjectileMovementComponent->ProjectileGravityScale = 0.0f;
 	
 	// Replicate this actor to everyone
-	SetReplicates(true);
+	bReplicates = true;
 	
 	
 }
