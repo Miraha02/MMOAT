@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "AbilitySystemInterface.h"
 #include "Abilities/GameplayAbility.h"
 #include "Data/MMOATCharacterData.h"
 #include "GameFramework/Character.h"
@@ -34,7 +35,7 @@ struct FSpellSet
 };
 
 UCLASS(config=Game)
-class AMMOATCharacter : public ACharacter
+class AMMOATCharacter : public ACharacter, public IAbilitySystemInterface
 {
 	GENERATED_BODY()
 
@@ -139,5 +140,6 @@ public:
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 	/** Returns FollowCamera subobject **/
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
+	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 };
 

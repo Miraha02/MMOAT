@@ -285,3 +285,8 @@ void AMMOATCharacter::LaunchSpell3()
 {
 	LAUNCH_SPELLS(Spells.Spell3, "Spell 3");
 }
+
+UAbilitySystemComponent* AMMOATCharacter::GetAbilitySystemComponent() const
+{
+	return ASC;
+}
