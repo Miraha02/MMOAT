@@ -28,6 +28,14 @@ void AAICharacter::BeginPlay()
 	SetReplicateMovement(true);
 
 	InitAttributes();
+
+	IS_NOT_NULL(GA_Attack, "GA_Attack class has not been filled in AICharacter Blueprint SubClass")
+	
+	if (HasAuthority())
+	{
+		ASC->GiveAbility(GA_Attack);
+		ASC->InitAbilityActorInfo(this, this);
+	}
 }
 
 // Called every frame
