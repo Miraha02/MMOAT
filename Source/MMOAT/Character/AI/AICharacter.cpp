@@ -33,7 +33,7 @@ void AAICharacter::BeginPlay()
 	IS_NOT_NULL(DataAsset, "DataAsset class has not been filled in Blueprint")
 	IS_NOT_NULL(GE_SetStats, "GE_SetStats class has not been filled in Blueprint");
 
-	SetStats();
+	SetStats(DataAsset->GetMaxHealth(), DataAsset->GetDamage());
 	
 	if (HasAuthority())
 	{
@@ -81,7 +81,7 @@ void AAICharacter::InitAttributes()
 	ASC->AddAttributeSetSubobject(IA_Attributes);
 }
 
-void AAICharacter::SetStats_Implementation()
+void AAICharacter::SetStats_Implementation(float Maxhealth, float Damage)
 {
 	UE_LOG(LogTemp, Warning, TEXT("SetStats Function NotImplemented"));
 }

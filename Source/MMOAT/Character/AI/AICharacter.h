@@ -47,7 +47,7 @@ protected:
 	virtual void BeginPlay() override;
 
 	UFUNCTION(BlueprintNativeEvent, Category = "Stats")
-	void SetStats();
+	void SetStats(float Maxhealth, float Damage);
 
 public:
 
