@@ -16,6 +16,11 @@ void UEnnemyAttributeSet::OnRep_Health(const FGameplayAttributeData& OldHealth)
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UEnnemyAttributeSet, Health, OldHealth);
 }
 
+void UEnnemyAttributeSet::OnRep_MaxHealth(const FGameplayAttributeData& OldMaxHealth)
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UEnnemyAttributeSet, MaxHealth, OldMaxHealth);
+}
+
 void UEnnemyAttributeSet::OnRep_Damage(const FGameplayAttributeData& OldDamage)
 {
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UEnnemyAttributeSet, Damage, OldDamage);
@@ -26,5 +31,6 @@ void UEnnemyAttributeSet::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& 
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 
 	DOREPLIFETIME(UEnnemyAttributeSet, Health);
+	DOREPLIFETIME(UEnnemyAttributeSet, MaxHealth);
 	DOREPLIFETIME(UEnnemyAttributeSet, Damage);
 }
