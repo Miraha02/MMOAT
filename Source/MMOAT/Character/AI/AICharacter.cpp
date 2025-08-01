@@ -3,6 +3,7 @@
 
 #include "AICharacter.h"
 
+#include "AbilitySystemBlueprintLibrary.h"
 #include "AbilitySystemComponent.h"
 #include "MMOAT/Err.h"
 #include "MMOAT/GAS/AttributeSets/EnnemyAttributeSet.h"
@@ -53,8 +54,12 @@ bool AAICharacter::Default_Attack_Implementation(AActor* Target)
 	}
 
 	FGameplayEventData EventData;
-	EventData.Target = Target;
+	EventData.EventTag = FGameplayTag::RequestGameplayTag("Event.AI.Attack");
 	EventData.Instigator = this;
+	EventData.Target = Target;
+	EventData.TargetData = UAbilitySystemBlueprintLibrary::AbilityTargetDataFromActor(Target);
+
+	ASC->HandleGameplayEvent(EventData.EventTag, &EventData);
 
 	return true;
 }
