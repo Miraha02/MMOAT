@@ -73,6 +73,6 @@ bool AAICharacter::Default_Attack_Implementation(AActor* Target)
 
 void AAICharacter::InitAttributes()
 {
-	NewObject<UEnnemyAttributeSet>(this, UEnnemyAttributeSet::StaticClass());
+	IA_Attributes = NewObject<UEnnemyAttributeSet>(this, UEnnemyAttributeSet::StaticClass());
 	ASC->AddAttributeSetSubobject(IA_Attributes);
 }

@@ -20,7 +20,7 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = ASC, meta = (AllowPrivateAccess = "true"))
 	UAbilitySystemComponent* ASC;
 	
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "AI_Attributes")
+	UPROPERTY(BlueprintReadWrite, Category = "AI_Attributes")
 	UAttributeSet* IA_Attributes;
 
 	UPROPERTY(EditDefaultsOnly, Category = "GA_Attack")
