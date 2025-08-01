@@ -81,22 +81,7 @@ void AAICharacter::InitAttributes()
 	ASC->AddAttributeSetSubobject(IA_Attributes);
 }
 
-void AAICharacter::SetStats()
+void AAICharacter::SetStats_Implementation()
 {
-	FGameplayEffectContextHandle EffectContext = ASC->MakeEffectContext();
-	EffectContext.AddSourceObject(this);
-
-	FGameplayEffectSpecHandle SpecHandle = ASC->MakeOutgoingSpec(GE_SetStats, 1.f, EffectContext);
-
-	if (SpecHandle.IsValid() && DataAsset)
-	{
-
-		UE_LOG(LogTemp, Display, TEXT("Set %s Stats"), *GetName());
-		
-		SpecHandle.Data->SetSetByCallerMagnitude(FGameplayTag::RequestGameplayTag(FName("Stats.Damage")), DataAsset->GetMaxHealth());
-		SpecHandle.Data->SetSetByCallerMagnitude(FGameplayTag::RequestGameplayTag(FName("Stats.HealthMax")), DataAsset->GetMaxHealth());
-		SpecHandle.Data->SetSetByCallerMagnitude(FGameplayTag::RequestGameplayTag(FName("Stats.Damage")), DataAsset->GetDamage());
-
-		ASC->ApplyGameplayEffectSpecToSelf(*SpecHandle.Data.Get());
-	}
+	UE_LOG(LogTemp, Warning, TEXT("SetStats Function NotImplemented"));
 }
