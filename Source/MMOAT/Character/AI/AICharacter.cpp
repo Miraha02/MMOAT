@@ -52,7 +52,7 @@ bool AAICharacter::Default_Attack_Implementation(AActor* Target)
 
 	
 	FGameplayEventData EventData;
-	EventData.EventTag = FGameplayTag::RequestGameplayTag("Event.AI.Attack");
+	EventData.EventTag = FGameplayTag::RequestGameplayTag(FName("Event.AI.Attack"));
 	EventData.Instigator = this;
 	EventData.Target = Target;
 	EventData.TargetData = UAbilitySystemBlueprintLibrary::AbilityTargetDataFromActor(Target);
