@@ -137,7 +137,7 @@ void AMMOATCharacter::OnDeath_Implementation()
 	// Le player est Déjà mort
 	if (ASC->HasMatchingGameplayTag(DeadTag))
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Character is already Dead, OnDeath Function Should not be twice or more"));
+		UE_LOG(LogTemp, Warning, TEXT("Character is already Dead, OnDeath Function Should not be call twice or more"));
 		return;
 	}
 
