@@ -20,10 +20,10 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = ASC, meta = (AllowPrivateAccess = "true"))
 	UAbilitySystemComponent* ASC;
 	
-	UPROPERTY()
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "AI_Attributes")
 	UAttributeSet* IA_Attributes;
 
-	UPROPERTY()
+	UPROPERTY(EditDefaultsOnly, Category = "GA_Attack")
 	TSubclassOf<UGameplayAbility> GA_Attack;
 	
 public:
