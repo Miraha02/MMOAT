@@ -3,6 +3,8 @@
 
 #include "Spell_Projectile.h"
 
+#include "AbilitySystemBlueprintLibrary.h"
+#include "AbilitySystemComponent.h"
 #include "Components/BoxComponent.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "MMOAT/Err.h"
@@ -36,6 +38,10 @@ void ASpell_Projectile::BeginPlay()
 	Super::BeginPlay();
 
 	IS_NOT_NULL(ParticleSystem->Template, "ParticleSystem->Template has not been initialized in BP_Spell_Projectile Subclasses");
+	IS_NOT_NULL(CollisionComponent, "Collision COmponent Should be settled in BP (in Construct script for example)");
+	IS_NOT_NULL(GameplayEffectClass, "GameplayEffectClass has not been filled in Spell_Projectile SubClasses Archetype");
+
+	CollisionComponent->OnComponentHit.AddDynamic(this, &ASpell_Projectile::OnHit);
 }
 
 // Called every frame
@@ -44,6 +50,48 @@ void ASpell_Projectile::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 }
 
-void ASpell_Projectile::OnSpellImpact_Implementation()
+void ASpell_Projectile::OnSpellImpact_Implementation(AActor* Target)
 {
+	if (!Target)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("No Target Found"));
+		return;
+	}
+	
+	UAbilitySystemComponent* TargetASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(Target);
+	if (!TargetASC)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Target does not have an AbilitySystemComponent"));
+		return;
+	}
+
+	// Setup Effect using Set By Caller
+	FGameplayEffectContextHandle EffectContext = TargetASC->MakeEffectContext();
+	EffectContext.AddSourceObject(this);
+
+	FGameplayEffectSpecHandle SpecHandle = TargetASC->MakeOutgoingSpec(GameplayEffectClass, 1.0f, EffectContext);
+	if (SpecHandle.IsValid())
+	{
+		SpecHandle.Data->SetSetByCallerMagnitude(FGameplayTag::RequestGameplayTag(FName("Skill.Damage")), Damage);
+		TargetASC->ApplyGameplayEffectSpecToSelf(*SpecHandle.Data);
+		
+		UE_LOG(LogTemp, Display, TEXT("GameplayEffect applied with Damage: %f"), Damage);
+		return;
+	}
+
+	UE_LOG(LogTemp, Warning, TEXT("Invalid GameplayEffectSpecHandle"));
+}
+
+void ASpell_Projectile::SetCollisionComponent(UShapeComponent* NewCollisionComponent)
+{
+	if (NewCollisionComponent)
+	{
+		CollisionComponent = NewCollisionComponent;
+	}
+}
+
+void ASpell_Projectile::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp,
+	FVector NormalImpulse, const FHitResult& Hit)
+{
+	OnSpellImpact(OtherActor);
 }

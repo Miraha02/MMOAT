@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "GameplayEffect.h"
 #include "GameFramework/Actor.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Spell_Projectile.generated.h"
@@ -22,6 +23,17 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = Projectile)
 	UProjectileMovementComponent* ProjectileMovementComponent;
 
+	/** Collider Component That SHould be filled in BP */
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Collision)
+	UShapeComponent* CollisionComponent;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = Damage)
+	float Damage = 0.0f;
+
+	UPROPERTY(EditDefaultsOnly, Category = GE_Tag)
+	TSubclassOf<UGameplayEffect> GameplayEffectClass;
+	
+
 public:
 
 private:
@@ -30,12 +42,18 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	// ✅ Méthode implémentable en Blueprint OU surchargeable en C++
 	UFUNCTION(BlueprintNativeEvent, Category = "Spell")
-	void OnSpellImpact();
+	void OnSpellImpact(AActor* Target);
 
-	// Version C++ à override
-	virtual void OnSpellImpact_Implementation();
+	virtual void OnSpellImpact_Implementation(AActor* Target);
+
+	/** Setter to Defind Component in Blueprint */
+	UFUNCTION(BlueprintCallable, Category = "Collision")
+	void SetCollisionComponent(UShapeComponent* NewCollisionComponent);
+
+	UFUNCTION()
+	void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor,
+			   UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
 
 public:
 	// Sets default values for this actor's properties
