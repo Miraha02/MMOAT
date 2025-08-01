@@ -66,9 +66,19 @@ void ADefault_AIController::SetNearestPlayerInBlackboard()
 		if (!IsValid(TestChar) || TestChar == ControlledPawn || TestChar->GetWorld() != World)
 			continue;
 
-		// Check That Char is Alive
-		if (!TestChar->ActorHasTag("Character.IsAlive") || TestChar->ActorHasTag("Character.IsDead"))
-			continue;
+		// Check That Char is Alive with Gameplay Tags
+		FGameplayTagContainer AliveTags;
+		IGameplayTagAssetInterface* TagInterface = Cast<IGameplayTagAssetInterface>(TestChar);
+		if (TagInterface)
+		{
+			TagInterface->GetOwnedGameplayTags(AliveTags);
+
+			const FGameplayTag AliveTag = FGameplayTag::RequestGameplayTag("Character.IsAlive");
+			const FGameplayTag DeadTag = FGameplayTag::RequestGameplayTag("Character.IsDead");
+
+			if (!AliveTags.HasTagExact(AliveTag) || AliveTags.HasTagExact(DeadTag))
+				continue;
+		}
 		
 		float SqrDist = FVector::DistSquared(MyLocation, TestChar->GetActorLocation());
 		if (SqrDist < ClosestSqrDistance)
