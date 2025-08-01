@@ -31,6 +31,9 @@ void AAICharacter::BeginPlay()
 
 	IS_NOT_NULL(GA_Attack, "GA_Attack class has not been filled in AICharacter Blueprint SubClass")
 	IS_NOT_NULL(DataAsset, "DataAsset class has not been filled in Blueprint")
+	IS_NOT_NULL(GE_SetStats, "GE_SetStats class has not been filled in Blueprint");
+
+	SetStats();
 	
 	if (HasAuthority())
 	{
@@ -76,4 +79,22 @@ void AAICharacter::InitAttributes()
 {
 	IA_Attributes = NewObject<UEnnemyAttributeSet>(this, UEnnemyAttributeSet::StaticClass());
 	ASC->AddAttributeSetSubobject(IA_Attributes);
+}
+
+void AAICharacter::SetStats()
+{
+	FGameplayEffectContextHandle EffectContext = ASC->MakeEffectContext();
+	EffectContext.AddSourceObject(this);
+
+	FGameplayEffectSpecHandle SpecHandle = ASC->MakeOutgoingSpec(GE_SetStats, 1.f, EffectContext);
+
+	if (SpecHandle.IsValid() && DataAsset)
+	{
+		// Utilisation de SetByCaller pour rendre les valeurs dynamiques
+		SpecHandle.Data->SetSetByCallerMagnitude(FGameplayTag::RequestGameplayTag(FName("Stats.Damage")), DataAsset->GetMaxHealth());
+		SpecHandle.Data->SetSetByCallerMagnitude(FGameplayTag::RequestGameplayTag(FName("Stats.HealthMax")), DataAsset->GetMaxHealth());
+		SpecHandle.Data->SetSetByCallerMagnitude(FGameplayTag::RequestGameplayTag(FName("Stats.Damage")), DataAsset->GetDamage());
+
+		ASC->ApplyGameplayEffectSpecToSelf(*SpecHandle.Data.Get());
+	}
 }

@@ -29,6 +29,9 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Data, meta = (AllowPrivateAccess = "true"))
 	UEnnemyDataAsset* DataAsset;
+
+	UPROPERTY(EditDefaultsOnly, Category = GE_SetStats)
+	TSubclassOf<UGameplayEffect> GE_SetStats;
 	
 public:
 
@@ -38,6 +41,8 @@ public:
 	void InitAttributes();
 
 private:
+
+	void SetStats();
 
 protected:
 	// Called when the game starts or when spawned
