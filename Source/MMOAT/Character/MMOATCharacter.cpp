@@ -143,9 +143,11 @@ void AMMOATCharacter::OnDeath_Implementation()
 
 	// Add and remove Alive and Dead Tags
 	ASC->AddLooseGameplayTag(DeadTag);
+	ASC->AddReplicatedLooseGameplayTag(DeadTag);
 	if (ASC->HasMatchingGameplayTag(AliveTag))
 	{
 		ASC->RemoveLooseGameplayTag(AliveTag);
+		ASC->RemoveReplicatedLooseGameplayTag(AliveTag);
 	}
 	
 }
