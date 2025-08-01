@@ -15,7 +15,7 @@ EBTNodeResult::Type UAttackAsDefaultAIController::ExecuteTask(UBehaviorTreeCompo
 	Super::ExecuteTask(OwnerComp, NodeMemory);
 
 	AAIController* AIController = OwnerComp.GetAIOwner();
-	ADefault_AIController* Default_AIController = Cast<ADefault_AIController>(AIController->GetPawn());
+	ADefault_AIController* Default_AIController = Cast<ADefault_AIController>(AIController);
 
 	if (Default_AIController)
 	{
