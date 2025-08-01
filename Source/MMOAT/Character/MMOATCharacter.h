@@ -8,7 +8,7 @@
 #include "Data/MMOATCharacterData.h"
 #include "GameFramework/Character.h"
 #include "Logging/LogMacros.h"
-#include "MMOAT/DeathComponent.h"
+#include "MMOAT/ActorComponent/DeathComponent.h"
 #include "MMOATCharacter.generated.h"
 
 class USpringArmComponent;
