@@ -30,6 +30,7 @@ void AAICharacter::BeginPlay()
 	InitAttributes();
 
 	IS_NOT_NULL(GA_Attack, "GA_Attack class has not been filled in AICharacter Blueprint SubClass")
+	IS_NOT_NULL(DataAsset, "DataAsset class has not been filled in Blueprint")
 	
 	if (HasAuthority())
 	{

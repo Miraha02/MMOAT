@@ -6,6 +6,7 @@
 #include "AttributeSet.h"
 #include "AIController/Default_AIController.h"
 #include "GameFramework/Character.h"
+#include "MMOAT/Character/Data/EnnemyDataAsset.h"
 #include "AICharacter.generated.h"
 
 UCLASS()
@@ -25,6 +26,9 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, Category = "GA_Attack")
 	TSubclassOf<UGameplayAbility> GA_Attack;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Data, meta = (AllowPrivateAccess = "true"))
+	UEnnemyDataAsset* DataAsset;
 	
 public:
 
