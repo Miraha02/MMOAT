@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "MMOAT/Character/MMOATCharacter.h"
 #include "Runtime/AIModule/Classes/AIController.h"
 #include "Default_AIController.generated.h"
 
@@ -14,6 +15,8 @@ class MMOAT_API ADefault_AIController : public AAIController
 private:
 
 	UBlackboardComponent* BlackboardComp;
+
+	AMMOATCharacter* NearestPlayer;
 
 protected:
 	

@@ -25,6 +25,9 @@ protected:
 	
 	UPROPERTY()
 	UAttributeSet* IA_Attributes;
+
+	UPROPERTY()
+	TSubclassOf<UGameplayAbility> GA_Attack;
 	
 public:
 
@@ -51,5 +54,5 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Default_Attack")
-	bool Default_Attack();
+	bool Default_Attack(AActor* Target);
 };

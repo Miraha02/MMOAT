@@ -44,9 +44,17 @@ void AAICharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 }
 
-bool AAICharacter::Default_Attack_Implementation()
+bool AAICharacter::Default_Attack_Implementation(AActor* Target)
 {
-	return false;
+	if (!Target)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("No Target Found"));
+		return false;
+	}
+
+	FGameplayEventData EventData;
+	EventData.Target = Target;
+	EventData.Instigator = this;
 }
 
 void AAICharacter::InitAttributes()

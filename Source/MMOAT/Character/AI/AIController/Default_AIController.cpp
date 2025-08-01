@@ -36,7 +36,7 @@ bool ADefault_AIController::Default_Attack()
 	AAICharacter* AIChar = Cast<AAICharacter>(GetPawn());
 	if (AIChar)
 	{
-		return AIChar->Default_Attack();
+		return AIChar->Default_Attack(NearestPlayer);
 	}
 	return false;
 }
@@ -73,9 +73,9 @@ void ADefault_AIController::SetNearestPlayerInBlackboard()
 			ClosestCharacter = TestChar;
 		}
 	}
-
 	if (ClosestCharacter)
 	{
+		NearestPlayer = ClosestCharacter;
 		BlackboardComp->SetValueAsVector("PlayerLocation",ClosestCharacter->GetActorLocation());
 	}
 }
