@@ -16,6 +16,17 @@ class MMOAT_API UEnnemyDataAsset : public UDataAsset
 
 protected:
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Data", meta=(AllowPrivateAccess=true))
+	float MaxHealth = 1.0f;
+
+public:
+	float GetMaxHealth() const;
+	float GetDamage() const;
+
+protected:
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Data", meta=(AllowPrivateAccess=true))
+	float Damage = 1.0f;
+	
 public:
 
 	

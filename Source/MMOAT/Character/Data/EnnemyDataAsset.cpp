@@ -2,3 +2,13 @@
 
 
 #include "EnnemyDataAsset.h"
+
+float UEnnemyDataAsset::GetMaxHealth() const
+{
+	return MaxHealth;
+}
+
+float UEnnemyDataAsset::GetDamage() const
+{
+	return Damage;
+}
