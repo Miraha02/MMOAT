@@ -18,6 +18,9 @@ ASpell_Projectile::ASpell_Projectile()
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	USceneComponent* Root = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
+	SetRootComponent(Root);
+	
 	// Create ParticleSystem Component
 	ParticleSystem = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("ParticleSystem"));
 	IS_NOT_NULL(ParticleSystem, "ParticleSystem Creation Failed !");
