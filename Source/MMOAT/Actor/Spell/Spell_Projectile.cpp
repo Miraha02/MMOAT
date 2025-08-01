@@ -46,7 +46,11 @@ void ASpell_Projectile::BeginPlay()
 	IS_NOT_NULL(GameplayEffectClass, "GameplayEffectClass has not been filled in Spell_Projectile SubClasses Archetype");
 
 	CollisionComponent->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
-	CollisionComponent->OnComponentHit.AddDynamic(this, &ASpell_Projectile::OnHit);
+	CollisionComponent->SetGenerateOverlapEvents(true);
+	CollisionComponent->SetCollisionResponseToAllChannels(ECR_Overlap);
+
+	
+	CollisionComponent->OnComponentBeginOverlap.AddDynamic(this, &ASpell_Projectile::OnBeginOverlap);
 }
 
 // Called every frame
@@ -95,12 +99,13 @@ void ASpell_Projectile::SetCollisionComponent(UShapeComponent* NewCollisionCompo
 	}
 }
 
-void ASpell_Projectile::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp,
-	FVector NormalImpulse, const FHitResult& Hit)
+void ASpell_Projectile::OnBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
+									   UPrimitiveComponent* OtherComp, int32 OtherBodyIndex,
+									   bool bFromSweep, const FHitResult& SweepResult)
 {
 	if (Cast<AAICharacter>(OtherActor))
 	{
-		UE_LOG(LogTemp, Warning, TEXT("An Ennemi has been Hitted !!!"));
+		UE_LOG(LogTemp, Display, TEXT("An Ennemi has been Hitted !!!"));
 		OnSpellImpact(OtherActor);
 	}
 }
