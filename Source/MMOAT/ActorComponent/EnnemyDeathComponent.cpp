@@ -5,6 +5,8 @@
 
 #include "AbilitySystemBlueprintLibrary.h"
 #include "AbilitySystemComponent.h"
+#include "AIController.h"
+#include "BrainComponent.h"
 
 
 // Sets default values for this component's properties
@@ -63,6 +65,21 @@ void UEnnemyDeathComponent::HandleDeath_Implementation()
 	ASC->AddLooseGameplayTag(FGameplayTag::RequestGameplayTag(FName("AI.IsDead")));
 
 	UE_LOG(LogTemp, Display, TEXT("GameplayTags updated on %s: +AI.IsDead, -AI.IsAlive"), *Owner->GetName());
+
+	// Stop Behavior Tree
+	APawn* PawnOwner = Cast<APawn>(Owner);
+	if (!PawnOwner)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("UEnnemyDeathComponent: Owner is not a Pawn"));
+		return;
+	}
+
+	AAIController* AIController = Cast<AAIController>(PawnOwner->GetController());
+	if (AIController && AIController->BrainComponent)
+	{
+		AIController->BrainComponent->StopLogic(TEXT("Death"));
+		UE_LOG(LogTemp, Display, TEXT("Behavior Tree stopped due to death"));
+	}
 
 }
 
