@@ -7,6 +7,8 @@
 
 UEnnemyAttributeSet::UEnnemyAttributeSet()
 {
+	Health = 1000;
+	Damage = 22.5;
 }
 
 void UEnnemyAttributeSet::OnRep_Health(const FGameplayAttributeData& OldHealth)
