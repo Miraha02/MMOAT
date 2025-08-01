@@ -72,7 +72,7 @@ void ASpell_Projectile::OnSpellImpact_Implementation(AActor* Target)
 	FGameplayEffectSpecHandle SpecHandle = TargetASC->MakeOutgoingSpec(GameplayEffectClass, 1.0f, EffectContext);
 	if (SpecHandle.IsValid())
 	{
-		SpecHandle.Data->SetSetByCallerMagnitude(FGameplayTag::RequestGameplayTag(FName("Skill.Damage")), Damage);
+		SpecHandle.Data->SetSetByCallerMagnitude(FGameplayTag::RequestGameplayTag(FName("Skill.Damage")), -Damage);
 		TargetASC->ApplyGameplayEffectSpecToSelf(*SpecHandle.Data);
 		
 		UE_LOG(LogTemp, Display, TEXT("GameplayEffect applied with Damage: %f"), Damage);
