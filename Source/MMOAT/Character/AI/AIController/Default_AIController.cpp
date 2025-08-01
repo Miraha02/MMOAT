@@ -77,5 +77,9 @@ void ADefault_AIController::SetNearestPlayerInBlackboard()
 	{
 		NearestPlayer = ClosestCharacter;
 		BlackboardComp->SetValueAsVector("PlayerLocation",ClosestCharacter->GetActorLocation());
+	} else
+	{
+		BlackboardComp->ClearValue("PlayerLocation");
+		NearestPlayer = nullptr;
 	}
 }
