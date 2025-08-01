@@ -85,6 +85,12 @@ void ASpell_Projectile::OnSpellImpact_Implementation(AActor* Target)
 		TargetASC->ApplyGameplayEffectSpecToSelf(*SpecHandle.Data);
 		
 		UE_LOG(LogTemp, Display, TEXT("GameplayEffect applied with Damage: %f"), Damage);
+
+		if (HasAuthority())
+		{
+			Destroy();
+		}
+		
 		return;
 	}
 
