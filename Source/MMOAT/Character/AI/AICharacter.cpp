@@ -55,6 +55,8 @@ bool AAICharacter::Default_Attack_Implementation(AActor* Target)
 	FGameplayEventData EventData;
 	EventData.Target = Target;
 	EventData.Instigator = this;
+
+	return true;
 }
 
 void AAICharacter::InitAttributes()
