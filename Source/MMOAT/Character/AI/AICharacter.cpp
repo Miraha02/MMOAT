@@ -53,12 +53,14 @@ bool AAICharacter::Default_Attack_Implementation(AActor* Target)
 		return false;
 	}
 
+	
 	FGameplayEventData EventData;
 	EventData.EventTag = FGameplayTag::RequestGameplayTag("Event.AI.Attack");
 	EventData.Instigator = this;
 	EventData.Target = Target;
 	EventData.TargetData = UAbilitySystemBlueprintLibrary::AbilityTargetDataFromActor(Target);
 
+	UE_LOG(LogTemp, Display, TEXT("Launching IA's ATTACK"));
 	ASC->HandleGameplayEvent(EventData.EventTag, &EventData);
 
 	return true;

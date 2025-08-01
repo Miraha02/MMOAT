@@ -23,7 +23,10 @@ EBTNodeResult::Type UAttackAsDefaultAIController::ExecuteTask(UBehaviorTreeCompo
 		{
 			return EBTNodeResult::Succeeded;
 		}
+		UE_LOG(LogTemp, Warning, TEXT("Attack Failed !"));
+		return EBTNodeResult::Failed;
 	}
 
+	UE_LOG(LogTemp, Warning, TEXT("AI is not Controller by Default_AI_Controller"))
 	return EBTNodeResult::Failed;
 }
