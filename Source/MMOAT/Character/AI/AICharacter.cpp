@@ -18,6 +18,9 @@ AAICharacter::AAICharacter()
 
 	ASC = CreateDefaultSubobject<UAbilitySystemComponent>(TEXT("ASC"));
 	IS_NOT_NULL(ASC, "Ability System Component Creation Failed");
+
+	DeathComponent = CreateDefaultSubobject<UEnnemyDeathComponent>(TEXT("DeathComponent"));
+	IS_NOT_NULL(DeathComponent, "Ennemy Death Component Creation Failed");
 }
 
 // Called when the game starts or when spawned

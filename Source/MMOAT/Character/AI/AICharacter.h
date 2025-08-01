@@ -6,6 +6,7 @@
 #include "AttributeSet.h"
 #include "AIController/Default_AIController.h"
 #include "GameFramework/Character.h"
+#include "MMOAT/ActorComponent/EnnemyDeathComponent.h"
 #include "MMOAT/Character/Data/EnnemyDataAsset.h"
 #include "AICharacter.generated.h"
 
@@ -32,6 +33,9 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, Category = GE_SetStats)
 	TSubclassOf<UGameplayEffect> GE_SetStats;
+
+	UPROPERTY(EditDefaultsOnly, Category = DeathComponent)
+	UEnnemyDeathComponent* DeathComponent;
 	
 public:
 
