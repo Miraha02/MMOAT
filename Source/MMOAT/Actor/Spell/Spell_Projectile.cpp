@@ -8,6 +8,7 @@
 #include "Components/BoxComponent.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "MMOAT/Err.h"
+#include "MMOAT/Character/AI/AICharacter.h"
 #include "Particles/ParticleSystemComponent.h"
 
 
@@ -41,6 +42,7 @@ void ASpell_Projectile::BeginPlay()
 	IS_NOT_NULL(CollisionComponent, "Collision COmponent Should be settled in BP (in Construct script for example)");
 	IS_NOT_NULL(GameplayEffectClass, "GameplayEffectClass has not been filled in Spell_Projectile SubClasses Archetype");
 
+	CollisionComponent->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
 	CollisionComponent->OnComponentHit.AddDynamic(this, &ASpell_Projectile::OnHit);
 }
 
@@ -93,5 +95,9 @@ void ASpell_Projectile::SetCollisionComponent(UShapeComponent* NewCollisionCompo
 void ASpell_Projectile::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp,
 	FVector NormalImpulse, const FHitResult& Hit)
 {
-	OnSpellImpact(OtherActor);
+	if (Cast<AAICharacter>(OtherActor))
+	{
+		UE_LOG(LogTemp, Warning, TEXT("An Ennemi has been Hitted !!!"));
+		OnSpellImpact(OtherActor);
+	}
 }
