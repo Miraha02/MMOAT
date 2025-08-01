@@ -83,5 +83,19 @@ void AAICharacter::InitAttributes()
 
 void AAICharacter::SetStats_Implementation(float Maxhealth, float Damage)
 {
-	UE_LOG(LogTemp, Warning, TEXT("SetStats Function NotImplemented"));
+	FGameplayEffectContextHandle EffectContext = ASC->MakeEffectContext();
+	EffectContext.AddSourceObject(this);
+
+	FGameplayEffectSpecHandle SpecHandle = ASC->MakeOutgoingSpec(GE_SetStats, 1.f, EffectContext);
+
+	if (SpecHandle.IsValid() && DataAsset)
+	{
+
+		UE_LOG(LogTemp, Display, TEXT("Set %s Stats"), *GetName());
+		
+		SpecHandle.Data->SetSetByCallerMagnitude(FGameplayTag::RequestGameplayTag(FName("Stats.HealthMax")), Maxhealth);
+		SpecHandle.Data->SetSetByCallerMagnitude(FGameplayTag::RequestGameplayTag(FName("Stats.Damage")), Damage);
+
+		ASC->ApplyGameplayEffectSpecToSelf(*SpecHandle.Data.Get());
+	}
 }
