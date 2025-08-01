@@ -109,4 +109,12 @@ void UGA_Projectile::SpawnProjectileOnHand(FGameplayEventData Payload)
 	// Commit l'ability après le spawn
 	CommitAbility(GetCurrentAbilitySpecHandle(), GetCurrentActorInfo(), GetCurrentActivationInfo());
 
+	EndAbility(
+	GetCurrentAbilitySpecHandle(),
+	GetCurrentActorInfo(),
+	GetCurrentActivationInfo(),
+	true, // bReplicateEndAbilityToRemote
+	false // bWasCancelled
+);
+
 }
