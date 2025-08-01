@@ -9,7 +9,7 @@
 /**
  * 
  */
-UCLASS()
+UCLASS(Blueprintable)
 class MMOAT_API UEnnemyDataAsset : public UDataAsset
 {
 	GENERATED_BODY()
