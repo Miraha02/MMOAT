@@ -3,6 +3,7 @@
 
 #include "Default_AIController.h"
 
+#include "AbilitySystemComponent.h"
 #include "BehaviorTree/BlackboardComponent.h"
 #include "MMOAT/Character/MMOATCharacter.h"
 #include "MMOAT/Character/AI/AICharacter.h"
@@ -67,18 +68,18 @@ void ADefault_AIController::SetNearestPlayerInBlackboard()
 			continue;
 
 		// Check That Char is Alive with Gameplay Tags
-		FGameplayTagContainer AliveTags;
-		IGameplayTagAssetInterface* TagInterface = Cast<IGameplayTagAssetInterface>(TestChar);
-		if (TagInterface)
+		const FGameplayTag AliveTag = FGameplayTag::RequestGameplayTag("Character.IsAlive");
+		const FGameplayTag DeadTag = FGameplayTag::RequestGameplayTag("Character.IsDead");
+		
+		UAbilitySystemComponent* Char_ASC = TestChar->GetAbilitySystemComponent();
+		
+		if (!Char_ASC)
 		{
-			TagInterface->GetOwnedGameplayTags(AliveTags);
-
-			const FGameplayTag AliveTag = FGameplayTag::RequestGameplayTag("Character.IsAlive");
-			const FGameplayTag DeadTag = FGameplayTag::RequestGameplayTag("Character.IsDead");
-
-			if (!AliveTags.HasTagExact(AliveTag) || AliveTags.HasTagExact(DeadTag))
-				continue;
+			return;
 		}
+			
+		if (!Char_ASC->HasMatchingGameplayTag(AliveTag) || Char_ASC->HasMatchingGameplayTag(DeadTag))
+			continue;
 		
 		float SqrDist = FVector::DistSquared(MyLocation, TestChar->GetActorLocation());
 		if (SqrDist < ClosestSqrDistance)
