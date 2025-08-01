@@ -90,7 +90,9 @@ void AAICharacter::SetStats()
 
 	if (SpecHandle.IsValid() && DataAsset)
 	{
-		// Utilisation de SetByCaller pour rendre les valeurs dynamiques
+
+		UE_LOG(LogTemp, Display, TEXT("Set %s Stats"), *GetName());
+		
 		SpecHandle.Data->SetSetByCallerMagnitude(FGameplayTag::RequestGameplayTag(FName("Stats.Damage")), DataAsset->GetMaxHealth());
 		SpecHandle.Data->SetSetByCallerMagnitude(FGameplayTag::RequestGameplayTag(FName("Stats.HealthMax")), DataAsset->GetMaxHealth());
 		SpecHandle.Data->SetSetByCallerMagnitude(FGameplayTag::RequestGameplayTag(FName("Stats.Damage")), DataAsset->GetDamage());
