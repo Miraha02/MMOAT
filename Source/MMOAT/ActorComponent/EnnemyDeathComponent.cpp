@@ -3,6 +3,9 @@
 
 #include "EnnemyDeathComponent.h"
 
+#include "AbilitySystemBlueprintLibrary.h"
+#include "AbilitySystemComponent.h"
+
 
 // Sets default values for this component's properties
 UEnnemyDeathComponent::UEnnemyDeathComponent()
@@ -32,5 +35,33 @@ void UEnnemyDeathComponent::TickComponent(float DeltaTime, ELevelTick TickType,
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	// ...
+}
+
+void UEnnemyDeathComponent::HandleDeath_Implementation()
+{
+	Super::HandleDeath_Implementation();
+
+	AActor* Owner = GetOwner();
+	if (!Owner)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("UEnnemyDeathComponent: No owner found"));
+		return;
+	}
+
+	UAbilitySystemComponent* ASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(Owner);
+	if (!ASC)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("UEnnemyDeathComponent: No AbilitySystemComponent found on %s"), *Owner->GetName());
+		return;
+	}
+
+	// Remove AI.IsAlive
+	ASC->RemoveLooseGameplayTag(FGameplayTag::RequestGameplayTag(FName("AI.IsAlive")));
+
+	// Add AI.IsDead
+	ASC->AddLooseGameplayTag(FGameplayTag::RequestGameplayTag(FName("AI.IsDead")));
+
+	UE_LOG(LogTemp, Display, TEXT("GameplayTags updated on %s: +AI.IsDead, -AI.IsAlive"), *Owner->GetName());
+
 }
 
