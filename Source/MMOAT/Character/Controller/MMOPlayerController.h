@@ -26,6 +26,12 @@ private:
 	
 protected:
 
+	UPROPERTY(EditDefaultsOnly, Category = "UI")
+	TSubclassOf<UUserWidget> StatsWidgetClass;
+
+	UPROPERTY(BlueprintReadWrite, Category = "UI")
+	UUserWidget* StatsRef;
+
 	// Mapping Context & Input Actions
 	UPROPERTY(EditDefaultsOnly, Category = "Input")
 	UInputMappingContext* DefaultMappingContext;
@@ -55,6 +61,10 @@ protected:
 public:
 
 private:
+	/**
+	 * Create the Stats Widget if Controller is client
+	 */
+	void CreateStatsWidget();
 	
 protected:
 

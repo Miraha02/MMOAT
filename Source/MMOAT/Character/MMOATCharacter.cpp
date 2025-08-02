@@ -137,15 +137,17 @@ void AMMOATCharacter::OnDeath_Implementation()
 	// Le player est Déjà mort
 	if (ASC->HasMatchingGameplayTag(DeadTag))
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Character is already Dead, OnDeath Function Should not be twice or more"));
+		UE_LOG(LogTemp, Warning, TEXT("Character is already Dead, OnDeath Function Should not be call twice or more"));
 		return;
 	}
 
 	// Add and remove Alive and Dead Tags
 	ASC->AddLooseGameplayTag(DeadTag);
+	ASC->AddReplicatedLooseGameplayTag(DeadTag);
 	if (ASC->HasMatchingGameplayTag(AliveTag))
 	{
 		ASC->RemoveLooseGameplayTag(AliveTag);
+		ASC->RemoveReplicatedLooseGameplayTag(AliveTag);
 	}
 	
 }
@@ -282,4 +284,9 @@ void AMMOATCharacter::LaunchSpell2()
 void AMMOATCharacter::LaunchSpell3()
 {
 	LAUNCH_SPELLS(Spells.Spell3, "Spell 3");
+}
+
+UAbilitySystemComponent* AMMOATCharacter::GetAbilitySystemComponent() const
+{
+	return ASC;
 }
