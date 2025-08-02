@@ -36,6 +36,9 @@ void AAICharacter::BeginPlay()
 	IS_NOT_NULL(DataAsset, "DataAsset class has not been filled in Blueprint")
 	IS_NOT_NULL(GE_SetStats, "GE_SetStats class has not been filled in Blueprint");
 
+	//Add Blueprint choosed Tag to Character's ASC 
+	ASC->AddLooseGameplayTags(StartingTags);
+	
 	SetStats(DataAsset->GetMaxHealth(), DataAsset->GetDamage());
 	
 	if (HasAuthority())

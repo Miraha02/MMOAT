@@ -36,6 +36,9 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, Category = DeathComponent)
 	UEnnemyDeathComponent* DeathComponent;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = GameplayTags, meta = (AllowPrivateAccess = "true"))
+	FGameplayTagContainer StartingTags;
 	
 public:
 
