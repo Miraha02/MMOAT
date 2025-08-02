@@ -32,7 +32,9 @@ public class MMOAT : ModuleRules
             "EnhancedInput", 
             "GameplayAbilities", 
             "GameplayTasks", 
-            "GameplayTags" 
+            "GameplayTags",
+            "UMG",
+            "AIModule"
         });
 
         // Modules privés (si nécessaire)

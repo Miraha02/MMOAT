@@ -5,6 +5,7 @@
 
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
+#include "Blueprint/UserWidget.h"
 #include "GameFramework/Character.h"
 #include "MMOAT/Err.h"
 #include "MMOAT/Character/MMOATCharacter.h"
@@ -36,6 +37,8 @@ void AMMOPlayerController::BeginPlay()
 	IS_NOT_NULL(SpellAction2,"Spell Action2 is Null");
 	IS_NOT_NULL(SpellAction3,"Spell Action3 is Null");
 
+	IS_NOT_NULL(StatsWidgetClass,"Stats Widget is Null");
+
 	if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer()))
 	{
 		if (DefaultMappingContext)
@@ -43,6 +46,9 @@ void AMMOPlayerController::BeginPlay()
 			Subsystem->AddMappingContext(DefaultMappingContext, 0);
 		}
 	}
+
+	// Add Stats UI to Controller if it is local client
+	CreateStatsWidget();
 	
 }
 
@@ -155,4 +161,19 @@ void AMMOPlayerController::AddInteractable(AActor* Interactable)
 void AMMOPlayerController::RemoveInteractable(AActor* Interactable)
 {
 	OverlappingInteractables.Remove(Interactable);
+}
+
+void AMMOPlayerController::CreateStatsWidget()
+{
+	if (IsLocalController())
+	{
+		if (StatsWidgetClass)
+		{
+			StatsRef = CreateWidget(this, StatsWidgetClass);
+			if (StatsRef)
+			{
+				StatsRef->AddToViewport();
+			}
+		}
+	}
 }
