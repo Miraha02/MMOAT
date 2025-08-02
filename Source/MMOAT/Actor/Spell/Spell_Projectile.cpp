@@ -74,24 +74,25 @@ void ASpell_Projectile::OnSpellImpact_Implementation(AActor* Target)
 		return;
 	}
 
-	// Setup Effect using Set By Caller
-	FGameplayEffectContextHandle EffectContext = TargetASC->MakeEffectContext();
-	EffectContext.AddSourceObject(this);
-
-	FGameplayEffectSpecHandle SpecHandle = TargetASC->MakeOutgoingSpec(GameplayEffectClass, 1.0f, EffectContext);
-	if (SpecHandle.IsValid())
+	if (HasAuthority())
 	{
-		SpecHandle.Data->SetSetByCallerMagnitude(FGameplayTag::RequestGameplayTag(FName("Skill.Damage")), -Damage);
-		TargetASC->ApplyGameplayEffectSpecToSelf(*SpecHandle.Data);
-		
-		UE_LOG(LogTemp, Display, TEXT("GameplayEffect applied with Damage: %f"), Damage);
+		// Setup Effect using Set By Caller
+		FGameplayEffectContextHandle EffectContext = TargetASC->MakeEffectContext();
+		EffectContext.AddSourceObject(this);
 
-		if (HasAuthority())
+		FGameplayEffectSpecHandle SpecHandle = TargetASC->MakeOutgoingSpec(GameplayEffectClass, 1.0f, EffectContext);
+		if (SpecHandle.IsValid())
 		{
-			Destroy();
-		}
+			SpecHandle.Data->SetSetByCallerMagnitude(FGameplayTag::RequestGameplayTag(FName("Skill.Damage")), -Damage);
+			TargetASC->ApplyGameplayEffectSpecToSelf(*SpecHandle.Data);
 		
-		return;
+			UE_LOG(LogTemp, Display, TEXT("GameplayEffect applied with Damage: %f"), Damage);
+
+		
+			Destroy();
+		
+			return;
+		}
 	}
 
 	UE_LOG(LogTemp, Warning, TEXT("Invalid GameplayEffectSpecHandle"));
