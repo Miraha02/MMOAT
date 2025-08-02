@@ -163,20 +163,6 @@ void AMMOPlayerController::RemoveInteractable(AActor* Interactable)
 	OverlappingInteractables.Remove(Interactable);
 }
 
-void AMMOPlayerController::AddInteractable(AActor* Interactable)
-{
-
-	if (Interactable && !OverlappingInteractables.Contains(Interactable))
-	{
-		OverlappingInteractables.Add(Interactable);
-	}
-}
-
-void AMMOPlayerController::RemoveInteractable(AActor* Interactable)
-{
-	OverlappingInteractables.Remove(Interactable);
-}
-
 void AMMOPlayerController::CreateStatsWidget()
 {
 	if (IsLocalController())
