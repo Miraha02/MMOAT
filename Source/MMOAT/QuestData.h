@@ -10,7 +10,7 @@ struct FQuestReward
     GENERATED_BODY()
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    FString ItemID;
+    FName ItemID;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
     int32 Quantity = 1;
@@ -33,13 +33,13 @@ struct FObjectiveData
     EObjectiveType ObjectiveType;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    FString TargetID;
+    FName TargetID;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    int32 TargetQuantity;
+    int64 TargetQuantity;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    int32 CurrentQuantity = 0;
+    int64 CurrentQuantity = 0;
 };
 
 USTRUCT(BlueprintType)
@@ -48,7 +48,7 @@ struct FQuestData : public FTableRowBase
     GENERATED_BODY()
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    FString QuestName;
+    FName QuestName;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
     FString Description;

@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
 #include "QuestData.h"
+#include "InventoryComponent.h"
 #include "QuestComponent.generated.h"
 
 
@@ -27,24 +28,24 @@ public:
 	
 	// Fonction pour ajouter une quête
 	UFUNCTION(BlueprintCallable, Category = "Quest")
-	void AddQuest(const FString& QuestName);
+	void AddQuest(const FName& QuestName);
 
 	UFUNCTION(BlueprintCallable, Category = "Quest")
 	void AddQuestFromID(FName QuestRowID);
 
 	UFUNCTION(BlueprintCallable, Category = "Quest")
-	void UpdateQuestOnItemPickup(const FString& ItemID, int32 Quantity);
+	void UpdateQuestOnItemPickup(const FName& ItemID, int64 Quantity);
 
 	// Fonction pour mettre à jour un objectif
 	UFUNCTION(BlueprintCallable, Category = "Quest")
-	void UpdateObjective(EObjectiveType ObjectiveType, const FString& TargetID, int32 Quantity);
+	void UpdateObjective(EObjectiveType ObjectiveType, const FName& TargetID, int64 Quantity);
 
 	UFUNCTION(BlueprintCallable, Category = "Quest")
 	void AddQuestFromRow(const FQuestData& QuestRow);
 
 	// Fonction pour vérifier si la quête est terminée
 	UFUNCTION(BlueprintCallable, Category = "Quest")
-	bool IsQuestCompleted(const FString& QuestName);
+	bool IsQuestCompleted(const FName& QuestName);
 
 	UFUNCTION(BlueprintCallable, Category = "Quest")
 	const TArray<FQuestData>& GetQuests() const { return Quests; }
@@ -52,8 +53,8 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Quest")
 	void GiveRewardsForQuest(const FQuestData& Quest);
 
-	//UPROPERTY()
-	//UInventoryComponent* InventoryComponent;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Quest", meta = (AllowPrivateAccess = "true"))
+	UInventoryComponent* InventoryComponent;
 	// Liste des quêtes
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Quest", meta = (AllowPrivateAccess = "true"))
 	TArray<FQuestData> Quests;

@@ -1,45 +1,44 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
-
 #include "QuestComponent.h"
 
-// Sets default values for this component's properties
 UQuestComponent::UQuestComponent()
 {
-	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
-	// off to improve performance if you don't need them.
-	PrimaryComponentTick.bCanEverTick = true;
-
-	// ...
+    PrimaryComponentTick.bCanEverTick = true;
 }
 
-
-// Called when the game starts
 void UQuestComponent::BeginPlay()
 {
-	Super::BeginPlay();
+    Super::BeginPlay();
+    // Cherche le InventoryComponent sur le même Actor
+    InventoryComponent = GetOwner()->FindComponentByClass<UInventoryComponent>();
 
-	// ...
-    //InventoryComponent = GetOwner()->FindComponentByClass<UInventoryComponent>();
-
+    if (!InventoryComponent)
+    {
+        UE_LOG(LogTemp, Warning, TEXT("InventoryComponent not found on %s"), *GetOwner()->GetName());
+    }
 }
 
-
-// Called every frame
 void UQuestComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
-	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+    Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+    if (!InventoryComponent)
+    {
+        InventoryComponent = GetOwner()->FindComponentByClass<UInventoryComponent>();
+        if (InventoryComponent)
+        {
+            UE_LOG(LogTemp, Warning, TEXT("InventoryComponent récupéré dans Tick: %s"), *InventoryComponent->GetName());
+        }
+    }
 
-	// ...
 }
 
-void UQuestComponent::AddQuest(const FString& QuestName)
+void UQuestComponent::AddQuest(const FName& QuestName)
 {
-    // Crée une nouvelle quête
     FQuestData NewQuest;
     NewQuest.QuestName = QuestName;
     NewQuest.bIsCompleted = false;
     Quests.Add(NewQuest);
+    UE_LOG(LogTemp, Warning, TEXT("New Quest Add %s"), *QuestName.ToString());
+
 }
 
 void UQuestComponent::AddQuestFromID(FName QuestRowID)
@@ -57,8 +56,7 @@ void UQuestComponent::AddQuestFromID(FName QuestRowID)
     {
         FQuestData NewQuest = *QuestFromRow;
         Quests.Add(NewQuest);
-
-        UE_LOG(LogTemp, Warning, TEXT("Quest added: %s"), *NewQuest.QuestName);
+        UE_LOG(LogTemp, Warning, TEXT("Quest added: %s"), *NewQuest.QuestName.ToString());
     }
     else
     {
@@ -66,15 +64,13 @@ void UQuestComponent::AddQuestFromID(FName QuestRowID)
     }
 }
 
-
 void UQuestComponent::AddQuestFromRow(const FQuestData& QuestRow)
 {
     Quests.Add(QuestRow);
-    UE_LOG(LogTemp, Warning, TEXT("Quest %s added from row!"), *QuestRow.QuestName);
+    UE_LOG(LogTemp, Warning, TEXT("Quest %s added from row!"), *QuestRow.QuestName.ToString());
 }
 
-
-void UQuestComponent::UpdateObjective(EObjectiveType ObjectiveType, const FString& TargetID, int32 Quantity)
+void UQuestComponent::UpdateObjective(EObjectiveType ObjectiveType, const FName& TargetID, int64 Quantity)
 {
     for (FQuestData& Quest : Quests)
     {
@@ -90,7 +86,6 @@ void UQuestComponent::UpdateObjective(EObjectiveType ObjectiveType, const FStrin
             }
         }
 
-        // Vérifie si tous les objectifs sont remplis
         bool bAllDone = true;
         for (const FObjectiveData& Obj : Quest.Objectives)
         {
@@ -104,59 +99,57 @@ void UQuestComponent::UpdateObjective(EObjectiveType ObjectiveType, const FStrin
         if (bAllDone)
         {
             Quest.bIsCompleted = true;
-            UE_LOG(LogTemp, Warning, TEXT("Quest %s completed!"), *Quest.QuestName);
+            UE_LOG(LogTemp, Warning, TEXT("Quest %s completed!"), *Quest.QuestName.ToString());
         }
     }
 }
-void UQuestComponent::UpdateQuestOnItemPickup(const FString& ItemID, int32 Quantity)
+
+void UQuestComponent::UpdateQuestOnItemPickup(const FName& ItemID, int64 Quantity)
 {
-    // Parcours toutes les quêtes
+    UE_LOG(LogTemp, Warning, TEXT("%s x%d"),*ItemID.ToString(),Quantity);
     for (FQuestData& Quest : Quests)
     {
         if (Quest.bIsCompleted)
-            continue; // Si la quête est déjà terminée, on passe à la suivante
+            continue;
 
-        bool bQuestCompleted = true; // Flag pour vérifier si tous les objectifs de la quête sont complétés
+        bool bQuestCompleted = true;
 
-        // Parcours tous les objectifs de la quête
         for (FObjectiveData& Obj : Quest.Objectives)
         {
-            // Si l'objectif est de type Collect et que l'ID cible correspond à l'objet ramassé
             if (Obj.ObjectiveType == EObjectiveType::OT_Collect && Obj.TargetID == ItemID)
             {
-                // Mise à jour de la quantité collectée
-                Obj.CurrentQuantity += Quantity;
+                if (Quantity == -1) {
+                    Obj.CurrentQuantity++;
+                }
+                else {
+                    Obj.CurrentQuantity += Quantity;
+                }
                 Obj.CurrentQuantity = FMath::Clamp(Obj.CurrentQuantity, 0, Obj.TargetQuantity);
 
-                // Vérifie si l'objectif est complété
                 if (Obj.CurrentQuantity >= Obj.TargetQuantity)
                 {
-                    UE_LOG(LogTemp, Warning, TEXT("Objectif %s de la quête %s complété!"), *ItemID, *Quest.QuestName);
+                    UE_LOG(LogTemp, Warning, TEXT("Objective %s for quest %s completed!"),
+                        *ItemID.ToString(), *Quest.QuestName.ToString());
                 }
             }
 
-            // Vérifie si cet objectif est toujours incomplet
             if (Obj.CurrentQuantity < Obj.TargetQuantity)
             {
-                bQuestCompleted = false; // Si un objectif n'est pas terminé, la quête n'est pas terminée
+                bQuestCompleted = false;
             }
         }
 
-        // Si tous les objectifs de la quête sont remplis
         if (bQuestCompleted)
         {
             Quest.bIsCompleted = true;
             GiveRewardsForQuest(Quest);
-            UE_LOG(LogTemp, Warning, TEXT("La quête %s est terminée!"), *Quest.QuestName);
+            UE_LOG(LogTemp, Warning, TEXT("Quest %s is completed!"), *Quest.QuestName.ToString());
         }
     }
 }
 
-
-
-bool UQuestComponent::IsQuestCompleted(const FString& QuestName)
+bool UQuestComponent::IsQuestCompleted(const FName& QuestName)
 {
-    // Vérifie si la quête est terminée
     for (const FQuestData& Quest : Quests)
     {
         if (Quest.QuestName == QuestName)
@@ -167,17 +160,16 @@ bool UQuestComponent::IsQuestCompleted(const FString& QuestName)
     return false;
 }
 
-
 void UQuestComponent::GiveRewardsForQuest(const FQuestData& Quest)
 {
     for (const FQuestReward& Reward : Quest.Rewards)
     {
-        UE_LOG(LogTemp, Warning, TEXT("Reward: %s x%d"), *Reward.ItemID, Reward.Quantity);
+        UE_LOG(LogTemp, Warning, TEXT("Reward: %s x%d"), *Reward.ItemID.ToString(), Reward.Quantity);
 
-        // EXEMPLE : ajout à l'inventaire
-       /* if (InventoryComponent)
+        if (InventoryComponent)
         {
-            InventoryComponent->AddItem(Reward.ItemID, Reward.Quantity);
-        }*/
+            UE_LOG(LogTemp, Warning, TEXT("Reward: %s x%d"), *Reward.ItemID.ToString(), Reward.Quantity);
+            InventoryComponent->GiveItem(Reward.ItemID, Reward.Quantity);
+        }
     }
 }

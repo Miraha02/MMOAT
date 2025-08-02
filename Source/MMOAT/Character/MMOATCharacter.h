@@ -73,7 +73,6 @@ protected:
 	 */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Spells, meta = (AllowPrivateAccess = "true"))
 	FSpellSet Spells;
-	
 
 public:
 
