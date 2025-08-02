@@ -53,6 +53,7 @@ void UEnnemyAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffect
 				UDeathComponent* DeathComponent = GetOwningActor()->FindComponentByClass<UDeathComponent>();
 				if (DeathComponent)
 				{
+					UE_LOG(LogTemp, Display, TEXT("AI is Dead"));
 					DeathComponent->Die();
 				}
 			}
